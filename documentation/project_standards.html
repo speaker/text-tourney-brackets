@@ -1,0 +1,1275 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "">
+<!-- saved from url=(0035)http://www.potolsky.com/mccomp1.htm -->
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+    <title>Open Source Development Standards</title>
+    <!-- base href="http://192.168.23.10/~speaker/OSDS.html" -->
+    <style>
+    </style>
+  </head>
+  <body>
+    <div>
+    </div>
+    <p class="MsoTitle" align="center">
+      <span style="font-size: 24pt; font-family: 'Times New Roman';">Open Software
+    Development Standards</span></p>
+
+    <p class="MsoTitle" align="center"><span style="font-family: 'Times New Roman';">Open Source Version</span></p>
+
+    <p align="center"><span style="font-size: 12pt;">Version 0.8.1</span></p>
+
+    <p align="center"><span style="font-size: 12pt;">Latest Revision: Sept 9, 2008</span></p>
+
+    <p align="center">Revision <span style="font-family: 'Times New Roman';">History at end of document </span></p>
+
+    <ol type="I">
+      <li>Forward
+        <ol type="A">
+          <li>These standards are being written without a specific project in mind.
+            Because of this, they will likely need some latitude to fit properly
+          into any development environment. </li>
+          <li>I am releasing the Open Source Coding Standards under the Gnu Free
+            Documentation License (GFDL): <a href="http://www.gnu.org/copyleft/fdl.html" target="_blank">http://www.gnu.org/copyleft/fdl.html</a> for release of
+          these standards. </li>
+          <li>The current process of revision for this document will be through
+          Adam Potolsky (<a href="mailto:adam.potolsky_at_gmail_dot_com">adam.potolsky_at_gmail_dot_com</a>). </li>
+          <li>Outstanding Issues -- Specific request for comments
+            <ol>
+              <li>&lt;This space intentionally left blank&gt; </li>
+            </ol>
+          </li>
+          <li>Pending
+            <ol>
+              <li>&lt;This space intentionally left blank&gt; </li>
+            </ol>
+          </li>
+          <li>Closed
+            <ol>
+              <li>none </li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+      <li>Introduction
+        <ol type="A">
+          <li>This document describes conventions that can be adopted by any
+            Software Engineering project. These conventions provide standards for
+            arranging directories, storing software under version control, and
+            writing source code. The purpose of these conventions is to make
+            software easier to understand and maintain. It is important to use
+            these standards throughout the lifetime of a project, from the first
+            requirements through the maintenance cycle. It is always easier to
+            conform to a common style from the outset than it is to apply the style
+            later on. In particular, tasks such as writing comments, handling
+            exceptions, and internationalization take longer if done after the rest
+          of the source code is written and tested. </li>
+          <li>These are not optional!
+            <ol>
+              <li>These coding standards shall be treated as requirements, or they
+                will not provide any real benefit. There is no getting around this.
+                It is better to change the standards internally and use 100% of
+                them then to pick and choose which section to use. This sets a bad
+              precedent, and goes against good process. </li>
+            </ol>
+          </li>
+          <li>One should break the convention only if there is a compelling reason
+            to do so, and even then after extensive review.
+            <ol>
+              <li>A violation of any of these coding standards should be discussed
+                with at least one other member of the programming team to determine
+                if the violation is sensible, and to determine if these coding
+                standards should be altered to include the exception as a general
+              case. </li>
+            </ol>
+          </li>
+          <li>The use and presentation style of any construct not specifically
+            mentioned in this standard shall be implemented as desired by the
+            programmer, but still adhering to the intent of the document.
+            <ol>
+              <li>For example, the programmer may insert extra spaces and extra
+                blank lines beyond those given in this standard to promote
+              readability. (See 2.3) </li>
+            </ol>
+          </li>
+          <li>For continuing development purposes, this standard should be applied
+            as strictly as possible to any future languages and systems possible.
+            <ol>
+              <li>The document is designed with &lsquo;C&rsquo; programming as its
+                core; however, it is not intended to be limited to &lsquo;C&rsquo;
+                as a language. In some cases languages may not have the concept of
+                header files, for example, and thus the header notations may be
+                ignored. This does not exempt those systems from following a sane
+                and strict standard. This document should be amended through time
+                to add concepts. Amendments to the official documentation can be
+                made through Adam Potolsky (mailto:<a href="mailto:adam.potolsky_at_gmail_dot_com">adam.potolsky_at_gmail_dot_com</a>).
+              </li>
+            </ol>
+          </li>
+          <li>The standards apply at all times, with limited coverage on other
+            projects.
+            <ol>
+              <li>The introduction of open source has changed the landscape a bit
+                with regard to development standards. This means that source from
+                developers not part of a project are not expected to follow this
+                standard unless the source is primarily owned and originated using
+                these standards. For example, changes to Samba could be made
+                without following the standards. There is an expectation of
+                quality, however, and any code written for Open Source projects
+                should still follow a high standard. Just because the code being
+                modified or added to is bad does not give license to write bad
+              code. </li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+      <li>Project and Architectural Guidelines
+        <ol type="A">
+          <li>Design
+            <ol>
+              <li><span style="font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; font-size: 7pt; line-height: normal; font-size-adjust: none; font-stretch: normal;">
+                </span>In general, Object Oriented Design (OOD) should be used
+                during the architectural phases of the project.
+                <ol type="a">
+                  <li>The concept of OOD is a good one. It provides an overall
+                    understandable structure for source code. In a greater sense,
+                    it provides a basis for seeing the big picture easily as well
+                    as making the process of digging down into the details less
+                  painful. </li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>File Editing
+            <ol>
+              <li>A width of 80 characters is not an option &shy; it&rsquo;s the
+                rule.
+                <ol type="a">
+                  <li>Much of this project is done using textual interfaces such as
+                    vim or emacs. Although most systems allow for windows to be of
+                    varying sizes, the ideal size is either 80x24 or 80x40. Assume
+                    for the purposes of this documentation, the window size is
+                    80x40. Ultimately, someone is going to be sitting at an vt100
+                    terminal which cannot display a width wider then 80, and if the
+                    code is already formatted for 80, then there will not be the
+                  pain of poorly word-wrapped code </li>
+                </ol>
+              </li>
+              <li>Use a mono-spaced font for all source code.
+                <ol type="a">
+                  <li>Courier is a good choice. It helps to keep indenting as you
+                    expect. This will make sure that when code is printed it will
+                  look as good on paper as on the screen. </li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>File Names
+            <ol>
+              <li>File names should be descriptive, and the names must be unique in
+                the first 20 characters except in the case where an 8.3 rule must
+                be adhered to. This applies to all files within a single scope --
+              usually a directory. </li>
+              <li>Filenames should not contain abbreviations except for the most
+              obvious ones. I.e. TCPDump.c, HTMLParse.c, xml2text.c </li>
+              <li>Use the upper/lower case naming scheme for filenames. As an
+                example, doSomething.c is a proper name.
+                <ol type="a">
+                  <li>In the case that an acronym is used as the first part of the
+                    name, the acronym can be either upper or lower case. As an
+                    example, the routines for accessing the LED on the box are in a
+                    file called &lsquo;ledAccess.c&rsquo;, but could also be
+                  &lsquo;LEDAccess.c&rsquo;. </li>
+                </ol>
+              </li>
+              <li>Each source file or logical set of source files should have its
+                own public header file, which matches the name of the compiled
+              object. </li>
+              <li>In an effort to make the overall source code more object like,
+                especially for non-object oriented languages such as
+                &lsquo;c&rsquo;, headers files as well as source files should use a
+                public and private naming convention.
+                <ol type="a">
+                  <li>If there are private routines in a source file or logical set
+                    of source&rsquo; files, a header ending in
+                    &lsquo;_private.h&rsquo; should be used and reside with the
+                  source files. </li>
+                  <li>The &lsquo;_public.h&rsquo; header is not necessary as it is
+                  implied by omission. </li>
+                  <li>If the overall grouping of files makes a single top-level
+                    package or object, there should be an overall header that is
+                    public to the world. The child headers of the files in this
+                    grouping are really private to the object but public within the
+                    object thus the _private header addition MAY be unnecessary.
+                  </li>
+                  <li>The following is an example. </li>
+                </ol>
+                <blockquote>
+                  <pre>&hellip;/stack
+   /stack.c
+   /stack.h
+   /StackArethmetic.h
+   /linkedlist/
+      /LinkedList_private.h
+      /LinkedList.c
+   /StackArithmetic/
+      /StackArethmetic_private.h
+      /StackArethmetic.c
+</pre>
+                  <ol type="i">
+                    <li>There is no stack_private.h because there is nothing
+                    private at this level. </li>
+                    <li>LinkedList_private.h, and StackArethmetic_private.h contain
+                      data and routines that ONLY their respective source files
+                      use. LinkedList.c cannot use StackArethmetic _private.h,
+                    however it can use StackArethmetic.h. </li>
+                    <li>stack.c uses StackArethmetic.h because the routines to
+                      perform push() and pop() action on the stack exist here, but
+                    it&rsquo;s completely blind to the linked list routines. </li>
+                    <li> One interpretation would be that /LinkedList/ is only
+                      private methods and data, /StackArethmetic/ is both public
+                      and private methods and data, and /stack/ is only public
+                    methods and data. </li>
+                  </ol>
+                </blockquote>
+              </li>
+              <li>Any project wide &lsquo;#define&rsquo;s, types, etc&hellip;
+                should be placed in a series of header files called:
+                <ol type="a">
+                  <li>For typedefs, enum types, etc&hellip;
+                    <ol>
+                      <li>ProjectNameTypes.h </li>
+                    </ol>
+                  </li>
+                  <li>For #defines
+                    <ol>
+                      <li>ProjectNameDefines.h </li>
+                    </ol>
+                  </li>
+                  <li>Used as a last resort to remove implicit declaration warning
+                    for those routines that have no prototype.
+                    <ol>
+                      <li>ProjectNameForwardDeclares.h </li>
+                      <li>It is important to note that NO source from any project
+                        written under these standards should have this problem. If
+                        it happens, it is very likely that the project has missed
+                        the standards, or more likely a privately defined routine
+                      is being called outside it's scope. </li>
+                    </ol>
+                  </li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Directory Layout
+            <ol>
+              <li>The typical project should have a directory layout that follows
+                the flow of the program. Subordinate directories should be used for
+                subordinate functionality. Directory names should be descriptive,
+                and the names must be unique in the first 20 characters. This
+                applies to all directories within a single scope -- usually a
+                parent directory. The directory hierarchies for a project should
+                look like:
+                <ol type="a">
+                  <li>
+<pre>
+&hellip;/ProjectName
+   /build
+   /tools
+   /core
+   /buzzword
+   /otherBuzWord
+   /include
+   /web
+      /cgi-bin
+      /cgi-src
+      /graphics
+      /help
+   /application
+   /development
+   /library
+</pre>
+                  </li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+      <li>Version Control
+        <ol type="A">
+          <li>Source Control
+            <ol>
+              <li>For the time being, CVS is the source control of choice. It is,
+                however, important to note that the decision to choose source
+                control should not be taken lightly. Every project is different,
+              and the wrong decision could cost time and money. </li>
+              <li>Only check files out of CVS when they need to be modified. </li>
+              <li>Delete all obsolete or duplicate source files from the CVS
+              project before each release. </li>
+              <li>Use a recursive directory diff to compare the local source
+                directory hierarchy with the corresponding CVS directory hierarchy.
+                This ensures that all new or modified files have been checked in.
+              </li>
+              <li>When checking in a file always write a comment describing the
+                change. If the change fixes a bug, include the bug number in the
+                comment. Prepend the # character to the bug number to facilitate
+                easy searching for bug fixes. For example, the following comment
+                describes the fix for bug 196 in doSomething.java.
+                <p><span style="font-family: Courier New,Courier,monospace">Bug
+                    #196. Clone the margin and text margin when installing the UI for
+                    the icon button so that changing the margin in the client will not
+                    modify the margin in the UI default hash table (which is shared by
+                all icon buttons.) </span></p>
+
+              </li>
+            </ol>
+          </li>
+          <li>Release control
+            <ol>
+              <li>There should be 4 numeric fields in a software project. Version,
+                Revision, Maintenance, Fix. Generally, the Version and revision are
+                relevant except in cases where support for a product is necessary.
+                In that case, the 3<sup>rd</sup> or 4<sup>th</sup> fields can be
+                used for more accurate accounting. No version of the code should
+                ever duplicate this numbering. Note that the version of Internet
+                Explorer I&rsquo;m using is 5.50.4134.0600. Most humans refer to it
+                as IE 5.5.
+                <ol type="a">
+                  <li>The first number is the Version field, and refers to Major
+                  changes in functionality. </li>
+                  <li>The second number is the Revision digit, and refers to minor
+                    functionality additions, and major bug fixes, or major
+                  serviceability changes. </li>
+                  <li>The third number refers to maintenance and should only be
+                  used for minor bug fixes, and serviceability changes. </li>
+                  <li>The fourth number refers to &lsquo;one customer&rsquo; fixes.
+                    That is a single customer has hit a bug and needs an immediate
+                  fix. Increment this number, build and ship it. </li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Defect and Feature Tracking
+            <ol>
+              <li>TBA </li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+      <li>Source Code Standards
+        <ol type="A">
+          <li>Purpose
+            <ol type="1">
+              <li>Coding guidelines make the source code easier to read during code
+                reviews and easier to modify by someone other than the original
+                developer. If everyone adopts the same style, each reviewer can
+                spend more time reviewing algorithms and program logic instead of
+                interpreting an unfamiliar style. Likewise, if someone has to
+                modify the source code, they can use the common coding conventions
+                instead of adjusting their style to match what is already there.
+              </li>
+            </ol>
+          </li>
+          <li>Naming Conventions
+            <ol type="1">
+              <li>Naming conventions are one of the most sticky of all subjects.
+                Naming can make source code more readable and easier to maintain.
+              </li>
+              <li>Variable Names
+                <ol type="a">
+                  <li>All variable names should be descriptive. Abbreviations
+                    should be minimized. Acronyms used in external documentation
+                    are acceptable. Certain shorter names may be used as array
+                    indices or as local variables of minimal scope. Minimal scope
+                    generally refers to fitting within one window. These shorter
+                    names include the following:
+                    <table border="1" cellpadding="0" cellspacing="0">
+                      <tbody>
+                        <tr>
+                          <td class="Normal" valign="top" width="143">i, m, n, x, y, z</td>
+                          <td class="Normal" valign="top" width="428">Array indices</td>
+                        </tr>
+                        <tr>
+                          <td class="Normal" valign="top" width="143">string, str, s</td>
+                          <td class="Normal" valign="top" width="428">Temporary strings having no particular meaning</td>
+                        </tr>
+                        <tr>
+                          <td class="Normal" valign="top" width="143">next, prev</td>
+                          <td class="Normal" valign="top" width="428">Next and previous struct pointers.</td>
+                        </tr>
+                        <tr>
+                          <td class="Normal" valign="top" width="143">pointer, ptr, p</td>
+                          <td class="Normal" valign="top" width="428">Temporary pointers having no particular meaning</td>
+                        </tr>
+                        <tr>
+                          <td class="Normal" valign="top" width="143">err</td>
+                          <td class="Normal" valign="top" width="428">Simple error code</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </li>
+                  <li>Variable names may be longer than 31 characters, but they
+                    should differ by the 31st character, since many flavors of UNIX
+                    only consider 31 characters significant. This applies to
+                  variables within the same scope. </li>
+                  <li>Names of private and protected static variables, functions,
+                    and methods should have a leading underscore. The remainder of
+                  the variable name should comply with other rules. </li>
+                  <li>Whenever Possible, private routines and variables are to be
+                    declared static and/or const to keep the scope to a minimum.
+                  </li>
+                  <li>The code should follow &ldquo;Hungarian Notation.&rdquo; The
+                    first character (prefix) of each variable name should indicate
+                    the type of the variable according to the following table. The
+                    pointer (p), unsigned (u), array (a), and void (v), can appear
+                    before another prefix. Otherwise, names should not contain more
+                    than one prefix.
+                    <table border="1" cellpadding="0" cellspacing="0">
+                      <tbody>
+                        <tr>
+                          <td class="Normal" valign="top" width="180">Prefix</td>
+                          <td class="Normal" valign="top" width="390">Meaning</td>
+                        </tr>
+                        <tr>
+                          <td class="Normal" valign="top" width="180">b</td>
+                          <td class="Normal" valign="top" width="390">boolean</td>
+                        </tr>
+                        <tr>
+                          <td class="Normal" valign="top" width="180">c</td>
+                          <td class="Normal" valign="top" width="390">char</td>
+                        </tr>
+                        <tr>
+                          <td class="Normal" valign="top" width="180">i</td>
+                          <td class="Normal" valign="top" width="390">int</td>
+                        </tr>
+                        <tr>
+                          <td class="Normal" valign="top" width="180">l</td>
+                          <td class="Normal" valign="top" width="390">long</td>
+                        </tr>
+                        <tr>
+                          <td class="Normal" valign="top" width="180">f</td>
+                          <td class="Normal" valign="top" width="390">float</td>
+                        </tr>
+                        <tr>
+                          <td class="Normal" valign="top" width="180">d</td>
+                          <td class="Normal" valign="top" width="390">double</td>
+                        </tr>
+                        <tr>
+                          <td class="Normal" valign="top" width="180">s</td>
+                          <td class="Normal" valign="top" width="390">character string</td>
+                        </tr>
+                        <tr>
+                          <td class="Normal" valign="top" width="180">o</td>
+                          <td class="Normal" valign="top" width="390">C++ object, class, structure</td>
+                        </tr>
+                        <tr>
+                          <td class="Normal" valign="top" width="180">u</td>
+                          <td class="Normal" valign="top" width="390">unsigned</td>
+                        </tr>
+                        <tr>
+                          <td class="Normal" valign="top" width="180">p</td>
+                          <td class="Normal" valign="top" width="390">pointer (includes pointers to pointers)</td>
+                        </tr>
+                        <tr>
+                          <td class="Normal" valign="top" width="180">v</td>
+                          <td class="Normal" valign="top" width="390">void</td>
+                        </tr>
+                        <tr>
+                          <td class="Normal" valign="top" width="180">a</td>
+                          <td class="Normal" valign="top" width="390">Array</td>
+                        </tr>
+                        <tr>
+                          <td class="Normal" valign="top" width="180">global</td>
+                          <td class="Normal" valign="top" width="390">Global variables*</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  <span style="font-family: 'Times New Roman';">* use the whole word global!</span> </li>
+                  <li>Following the first character of the name (prefix), the first
+                    character of each word of a variable name should be
+                    capitalized. Acronyms should appear in upper case. For example:
+                    <table border="1" cellpadding="0" cellspacing="0">
+                      <tbody>
+                        <tr>
+                          <td class="Normal" valign="top" width="570">fDistance</td>
+                        </tr>
+                        <tr>
+                          <td class="Normal" valign="top" width="570">iNumberOfCoverages</td>
+                        </tr>
+                        <tr>
+                          <td class="Normal" valign="top" width="570">uiNumberOfCoverages</td>
+                        </tr>
+                        <tr>
+                          <td class="Normal" valign="top" width="570">sACT</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </li>
+                  <li>A member function that logically doesn&rsquo;t change the
+                    object through which it was called should be declared const.
+                  </li>
+                  <li>Arguments to a function that are passed by reference and
+                  aren't modified by the function should be declared const. </li>
+                </ol>
+              </li>
+              <li>Type Names
+                <ol type="a">
+                  <li>For portability between operating systems, the following type
+                    definitions should be used:
+                    <table border="1" cellpadding="0" cellspacing="0">
+                      <tbody>
+                        <tr>
+                          <td class="Normal" valign="top" width="180">int</td>
+                          <td class="Normal" valign="top" width="390">integers of various sizes</td>
+                        </tr>
+                        <tr>
+                          <td class="Normal" valign="top" width="180">long</td>
+                          <td class="Normal" valign="top" width="390">integer number guaranteed to be at least 32bit</td>
+                        </tr>
+                        <tr>
+                          <td class="Normal" valign="top" width="180">float, double</td>
+                          <td class="Normal" valign="top" width="390">floats of various sizes</td>
+                        </tr>
+                        <tr>
+                          <td class="Normal" valign="top" width="180">bool</td>
+                          <td class="Normal" valign="top" width="390">logical, only 1 and 0 are considered</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </li>
+                  <li>It is very likely that size specific types are needed
+                    throughout the source code. These types could include int64,
+                    char32, etc... They should be defined as appropriate in a
+                    single project header file. DoSomethingTypes.h is a good
+                    example of a name for a header file that contains project wide
+                  types. </li>
+                  <li>The names of abstract data types, structures, typedefs, and
+                    enumerated types should begin with an uppercase letter (with
+                  the exception of the basic types mentioned in V-b-3-a). </li>
+                  <li>Typedefs should always end in &lsquo;_t&rsquo; for example:
+                    <ol>
+                      <li>
+<pre>
+typedef struct FileListStrucure{
+   char                          *sFileName;
+   struct    FileListStructure   *next;
+   struct    FileListStructure   *prev;
+} FileList_t;
+</pre>
+                      </li>
+                    </ol>
+                  </li>
+                </ol>
+              </li>
+              <li>Function Names
+                <ol type="a">
+                  <li>Assessor functions which "get" a value should have the prefix
+                    "get" attached to the name. Functions which "set" a value
+                    should have the prefix "set" attached to the name.  For
+                  example, getName() and setName(). </li>
+                  <li>The following table contains examples that follow the
+                    previous naming rules:
+                    <table border="1" cellpadding="0" cellspacing="0">
+                      <tbody>
+                        <tr>
+                          <td class="Normal" valign="top" width="180">Types</td>
+                          <td class="Normal" valign="top" width="200">Private variable</td>
+                          <td class="Normal" valign="top" width="190">Scope variable</td>
+                        </tr>
+                        <tr>
+                          <td class="Normal" valign="top" width="180">variables</td>
+                          <td class="Normal" valign="top" width="200">_iVariable</td>
+                          <td class="Normal" valign="top" width="190">iVariable</td>
+                        </tr>
+                        <tr>
+                          <td class="Normal" valign="top" width="180">constants</td>
+                          <td class="Normal" valign="top" width="200">_CONST</td>
+                          <td class="Normal" valign="top" width="190">A_CONST</td>
+                        </tr>
+                        <tr>
+                          <td class="Normal" valign="top" width="180">functions</td>
+                          <td class="Normal" valign="top" width="200">_function</td>
+                          <td class="Normal" valign="top" width="190">aFunction</td>
+                        </tr>
+                        <tr>
+                          <td class="Normal" valign="top" width="180">objects</td>
+                          <td class="Normal" valign="top" width="200">_oStructure</td>
+                          <td class="Normal" valign="top" width="190">oAStructure</td>
+                        </tr>
+                        <tr>
+                          <td class="Normal" valign="top" width="180">typedefs</td>
+                          <td class="Normal" valign="top" width="200">_Typedef</td>
+                          <td class="Normal" valign="top" width="190">ATypedef</td>
+                        </tr>
+                        <tr>
+                          <td class="Normal" valign="top" width="180">enumerated types</td>
+                          <td class="Normal" valign="top" width="200">_Enum</td>
+                          <td class="Normal" valign="top" width="190">AnEnum</td>
+                        </tr>
+                        <tr>
+                          <td class="Normal" valign="top" width="180">#define</td>
+                          <td class="Normal" valign="top" width="200">_LIST</td>
+                          <td class="Normal" valign="top" width="190">A_LIST</td>
+                        </tr>
+                        <tr>
+                          <td class="Normal" valign="top" width="180">enumerations</td>
+                          <td class="Normal" valign="top" width="200">_ENUM</td>
+                          <td class="Normal" valign="top" width="190">AN_ENUM</td>
+                        </tr>
+                        <tr>
+                          <td class="Normal" valign="top" width="180">Classes</td>
+                          <td class="Normal" valign="top" width="200">_oClass</td>
+                          <td class="Normal" valign="top" width="190">oClass</td>
+                        </tr>
+                        <tr>
+                          <td class="Normal" valign="top" width="180">Array</td>
+                          <td class="Normal" valign="top" width="200">_sNameArray</td>
+                          <td class="Normal" valign="top" width="190">sNameArray</td>
+                        </tr>
+                        <tr>
+                          <td class="Normal" valign="top" width="180">global</td>
+                          <td class="Normal" valign="top" width="200">_globaliValue</td>
+                          <td class="Normal" valign="top" width="190">iValue</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </li>
+                </ol>
+              </li>
+              <li>File Layout
+                <ol type="a">
+                  <li>The layout of any source code file should follow a clear and
+                    logical sequence. There are a number of fields which may not be
+                    used. Empty fields should be included in the headers for
+                    consistency purposes.
+                    <table border="1" cellpadding="0" cellspacing="0">
+                      <tbody>
+                        <tr>
+                          <td class="Normal" valign="top" width="158"><p>Copyright</p></td>
+
+                          <td class="Normal" valign="top" width="413"><p>Legal header</p></td>
+
+                        </tr>
+                        <tr>
+                          <td class="Normal" valign="top" width="158"><p>Filename</p></td>
+
+                          <td class="Normal" valign="top" width="413"><p>Name of file</p></td>
+
+                        </tr>
+                        <tr>
+                          <td class="Normal" valign="top" width="158"><p>Description</p></td>
+
+                          <td class="Normal" valign="top" width="413"><p>Detailed description of the file, including its purpose and use.</p></td>
+
+                        </tr>
+                        <tr>
+                          <td class="Normal" valign="top" width="158"><p>Notations</p></td>
+
+                          <td class="Normal" valign="top" width="413"><p>Additional information</p></td>
+
+                        </tr>
+                        <tr>
+                          <td class="Normal" valign="top" width="158"><p>Author</p></td>
+
+                          <td class="Normal" valign="top" width="413"><p>Who created the file</p></td>
+
+                        </tr>
+                        <tr>
+                          <td class="Normal" valign="top" width="158"><p>Revision History</p></td>
+
+                          <td class="Normal" valign="top" width="413"><p>This is not filled in by CVS</p></td>
+
+                        </tr>
+                        <tr>
+                          <td class="Normal" valign="top" width="158"><p>Public Routines</p></td>
+
+                          <td class="Normal" valign="top" width="413"><p>Routines allowed outside the scope of the file.</p></td>
+
+                        </tr>
+                        <tr>
+                          <td class="Normal" valign="top" width="158"><p>Private routines</p></td>
+
+                          <td class="Normal" valign="top" width="413"><p>Routines for internal use only</p></td>
+
+                        </tr>
+                      </tbody>
+                    </table>
+                  </li>
+                  <li>The following example summarizes the essential elements and
+                    the order in which they should appear.
+                    <ol type="i">
+                      <li>
+<pre>
+/*******************************************************************************
+* Copyleft 2000, CodeHazard, Inc. No Rights Reserved.                          *
+*                                                                              *
+* Filename:      DoSomething.c                                                 *  
+* Description:   DoSomething.c contains&hellip;                                       * 
+* Notations:     The memset()'s used&hellip;                                          *
+*                                                                              *    
+* Author:        Mario Foonman                                                 *
+*                                                                              *
+* Revision History:                                                            *
+*    10/01/99    Mario      Creation                                           *
+*    10/20/99    Mario      Added&hellip;                                             *
+*                                                                              *
+* Public Routines:                                                             *
+*  int  SetSomething( char  *sName );                                          *
+*  int  GetSomething     ( char  *sName );                                     *
+*                                                                              *
+* Private routines:                                                            *
+* void _ModifySomething ( char *sName );                                       *
+*                                                                              *
+*******************************************************************************/
+#include &lt;stdlib.h&gt;
+#include &ldquo;DoSomething.h&rdquo;
+</pre>
+                      </li>
+                    </ol>
+                  </li>
+                </ol>
+              </li>
+              <li>Routine Layout
+                <ol type="a">
+                  <li>Routines Should be concise without compromising readability.
+                    <table border="1" cellpadding="0" cellspacing="0">
+                      <tbody>
+                        <tr>
+                          <td class="Normal" valign="top" width="158">&lt;Name&gt;</td>
+                          <td class="Normal" valign="top" width="413">Name of procedure</td>
+                        </tr>
+                        <tr>
+                          <td class="Normal" valign="top" width="158">Description</td>
+                          <td class="Normal" valign="top" width="413">Detailed description of the routine, including its purpose and use.</td>
+                        </tr>
+                        <tr>
+                          <td class="Normal" valign="top" width="158">Inputs</td>
+                          <td class="Normal" valign="top" width="413">Description of arguments.</td>
+                        </tr>
+                        <tr>
+                          <td class="Normal" valign="top" width="158">Requirements</td>
+                          <td class="Normal" valign="top" width="413">Any requirements the arguments may have</td>
+                        </tr>
+                        <tr>
+                          <td class="Normal" valign="top" width="158">Outputs</td>
+                          <td class="Normal" valign="top" width="413">What is returned by the routine.</td>
+                        </tr>
+                        <tr>
+                          <td class="Normal" valign="top" width="158">Effects</td>
+                          <td class="Normal" valign="top" width="413">The effects of running the routine. Usually refers to the memory pointed to, but may be other effects.</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </li>
+                  <li>The following example summarizes the essential elements and
+                    the order in which they should appear. Note on the following
+                    example, the routine&rsquo;s main purpose is to retrieve the
+                    name, but that is NOT output. Output is the status of the
+                    routine, the Effect the routine has is to load the name of the
+                    thing into the memory pointed to by  the passed in pointer
+                    <ol type="i">
+                      <li>
+<pre>
+/*******************************************************************************
+*                                                                              *
+* Status_t  GetSomething( char *sName );                                       *
+*                                                                              *
+* Description:      This routine populates the string sName with something.    *
+*                                                                              *
+* Inputs:           sName     sName points to allocated&hellip;                       *
+*                                                                              *
+* Requirements:     sName     The name of the thing must&hellip;                      *
+*                                                                              *
+* Outputs:          Status_t  returns PASS or FAIL                             *
+*                                                                              *
+* Effects:          sName     The value sName points to is changed.            *
+*                                                                              *
+*******************************************************************************/
+Status_t SetSomething ( char *sName )
+{
+   Procedure body&hellip;
+}
+</pre>
+                      </li>
+                    </ol>
+                  </li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Source Code Formatting
+            <ol type="1">
+              <li>As a design goal, a function should not exceed one page of code
+                nor should source code lines exceed 80 characters in length
+                (including leading spaces). Any line that would be longer than the
+                maximum should either continue on a subsequent line or be
+                rewritten. Consider using a semicolon as a break first, then a
+                comma. If one break is made, it is often preferable to break on
+                each instance instead of just as necessary. For example:
+                <ol>
+                  <li>
+<pre>
+for( iCntr = 0 ;
+   ( SrcAry[iCntr] != DestAry[iCntr] ) &amp;&amp; iCntr &lt; MAX);
+     iCntr++ )
+</pre>
+                  </li>
+                </ol>
+              </li>
+              <li>Braces
+                <ol type="a">
+                  <li>Always use braces with control statements such as
+                    if-then-else statements, even if there is only one statement
+                    within the control statement. This prevents statements from
+                  being omitted from a control statement accidentally. </li>
+                  <li>Left braces ('{') should appear on a line containing no other
+                    code (with the exception of optional supporting comments) at
+                    the same indent level of the item preceding that brace. Right
+                    braces ('}') should appear on a line containing no other code
+                    (with the exception of optional supporting comments) at the
+                  same indent level of the matching left brace. </li>
+                  <li>Only one style should be used for if statements:
+                    <ol type="i">
+                      <li>
+<pre>
+/*The Allowed Style */
+if( I == j )
+{
+   x = y;
+}
+/* The following styles violate this rule */
+if( I == j )
+   x = y;
+
+if( I == j ) x = y;
+</pre>
+                      </li>
+                    </ol>
+                  </li>
+                  <li>switct() statement special case: There is a case when a
+                    switch statement is performing a function which is
+                    substantially more readable if the overall format is compact.
+                    If the only action of the entire set of case statements are
+                    return commands, each case and return can be placed on one
+                    line. Similiar considerations are allowed for if-then blocks.
+                    For example:
+                    <ol type="i">
+                      <li>
+<pre>
+/* The Allowed Style */
+switch( iWeek )
+{
+   case(1): return(&ldquo;Sunday&rdquo;);
+   case(2): return(&ldquo;Monday&rdquo;);
+   case(3): return(&ldquo;Tuesday&rdquo;);
+   case(4): return(&ldquo;Wednesday&rdquo;);
+   case(5): return(&ldquo;Thursday&rdquo;);
+   case(6): return(&ldquo;Friday&rdquo;);
+   case(7): return(&ldquo;Saturday&rdquo;);
+   default: return(&ldquo;Otherday&rdquo;);
+}
+</pre>
+                      </li>
+                    </ol>
+                  </li>
+                </ol>
+              </li>
+              <li>Spacing
+                <ol type="a">
+                  <li>Under most circumstances, put spaces between logical tokens.
+                    <ol>
+                      <li>For example:
+                        <pre>while( (iLatitude != iLongitude) &amp;&amp; (iCntr &lt; MAX_CNTR) )
+{
+  doSomething(iLatitude, iLongitude);
+}
+</pre>
+                      </li>
+                      <li>Notice there are not spaces preceeding the parands on the
+                        innermost conditionals, while there is a space on the
+                        outermost. This helps to show the logical blocks of the the
+                      greater while() statement.</li>
+                      <li>Further, the doSomething() call has an English style
+                        comma separated list without other spaces. This is very
+                      readable w/o spaces and thus is acceptable.</li>
+                      <li>The following is not acceptable:
+                        <pre>if((iLatitude==iLongitude)||(iCntr&gt;=MAX_CNTR))
+{
+  doSomethingElse(iLatitude,iLongitude);
+}
+</pre>
+                      </li>
+                      <li>In this case, the lexical complexity in terms of readability is not as good.</li>
+                    </ol>
+                  </li>
+                </ol>
+              </li>
+              <li>Indention
+                <ol type="a">
+                  <li>Tabs characters should be used in source code with a tab
+                    width of 3.
+                    <ol type="i">
+                      <li>This can be set in CodeWarrior under:
+                        Edit-&gt;Preferences-&gt;[Editor-&gt;Font &amp;
+                      Tabs]-&gt;(Tab Setting) </li>
+                      <li>This can be set in vi with: :set ts=3 set sw=3 or by
+                        adding the following statement to the profile.ksh
+                      file:export EXINIT="set Ts=3 SW=3 autoindent" </li>
+                      <li>This can be set in tornado
+                        under:tools-&gt;options-&gt;editor&hellip;-&gt;[Tab Stops]
+                      </li>
+                      <li>Here is one method of setting a code indent of 3 in
+                        emacs:
+                        <ol>
+                          <li>
+<pre>
+include the following in the .emacs file:
+;; codehazard setup
+(defun codehazard-c-mode () 
+  "C mode with adjusted defaults for coding standards."
+  (interactive)
+  (c-mode)
+  (c-set-style "K&amp;R")
+  (setq c-basic-offset 3))
+</pre>
+                          </li>
+                          <li>Then somewhere in the first two lines of each .c or
+                            .h file I put: /* -*- codehazard-c -*- */ That causes
+                          emacs to automatically apply the c-mode. </li>
+                          <li>You can also do a command from the minibuffer to
+                            apply the mode, but I'd have to look that up. (I put
+                            the line at the beginning of the file so I don't _have_
+                          to remember the command, or do it.) </li>
+                        </ol>
+                      </li>
+                    </ol>
+                  </li>
+                  <li>Code between braces should appear one indent level to the
+                    right of the corresponding braces:
+                    <ol type="i">
+                      <li>
+<pre>
+while(lFlag == TRUE)
+{
+   ++x;
+}
+</pre>
+                      </li>
+                      <li>The command indent can be used with the option -bli0
+                        (--brace-indent0) that is, the braces indenting is set to
+                      zero. </li>
+                    </ol>
+                  </li>
+                  <li>Statements that are part of a switch should appear two indent
+                    levels to the right of the corresponding braces, while case and
+                    default statements should appear one indent level to the right
+                    of the corresponding braces.
+                    <ol type="i">
+                      <li>
+<pre>
+switch ( x )
+{
+  case 1:            /* 1 level for case        */                    
+    ++x;             /* 2 levels for statements */
+    break;           /* 2 levels for statements */
+  default:           /* 1 level for default     */
+    x += y;          /* 2 levels for statements */
+}
+</pre>
+                      </li>
+                    </ol>
+                  </li>
+                  <li>Comments should be indented to match the relevant code.
+                    Function header comments should use slash-asterisk ("/*") and
+                    asterisk-slash ("*/") to begin and end comments.
+                    <ol>
+                      <li>
+<pre>
+/* This comment describes the while if statement. */
+if ( i == 0 )
+{
+   /* This comment describes the following block of statements */
+   DoSomething();
+}
+</pre>
+                      </li>
+                    </ol>
+                  </li>
+                  <li>In_Line comments should be spaced away from the code they are
+                    commenting.
+                    <ol type="i">
+                      <li><span style="font-family: Courier New,Courier,monospace">++x;/* comments are too close to actual code */ </span></li>
+                      <li><span style="font-family: Courier New,Courier,monospace">++y; /* better indentation */ </span></li>
+                    </ol>
+                  </li>
+                  <li>As an exception to other style and indentation rules, short
+                    inline functions and Macros may appear on a single line:
+                    <ol type="i">
+                      <li><span style="font-family: Courier New,Courier,monospace">inline char *getString(void) { return "A String"; } </span></li>
+                    </ol>
+                  </li>
+                </ol>
+              </li>
+              <li>Comments
+                <ol type="a">
+                  <li>Comments are a critical part of source code. They help make
+                    the code more readable, and identify to the code reviewer where
+                  problems could exist. </li>
+                  <li>Good comments not only describe what a section of code does,
+                    but why the process was chosen if there are obvious choices.
+                  </li>
+                  <li>Comments should also include &lsquo;gotchas&rsquo; and
+                    pitfalls that were encountered during the writing or altering
+                  of code </li>
+                  <li>Comment types not part of a language specification should not
+                    be used to comment a language.
+                    <ol type="i">
+                      <li>For example, the &lsquo;//&rsquo; comment type is ONLY
+                        for &lsquo;C++&rsquo; Although many &lsquo;C&rsquo;
+                        compilers will allow its use the &lsquo;//&rsquo;
+                        construct  is NOT part of the &lsquo;C&rsquo;
+                      language. </li>
+                    </ol>
+                  </li>
+                  <li>In some instances inline comments are better and others,
+                    header comments are better. It is up to the programmer where
+                    each should be used. V-C-4-d is an example of inline comments.
+                  </li>
+                </ol>
+              </li>
+              <li>Style
+                <ol type="a">
+                  <li>Complexity should be reduced whenever possible.
+                    <ol type="i">
+                      <li>Any compiler worth it's salt is going to optimize beyond
+                        anything that the programmer can do on their own, and will
+                        recognize where loops can be unfurled, registeres can be
+                        shared, etc... In reality, most systems will compile
+                        6-a-ii-1 into 6-a-ii-2 as each assignment must be done
+                      separately. </li>
+                      <li>Break a large statement or expression into smaller pieces and then combine the pieces at the end. For Example:
+                        <ol>
+                          <li>
+<pre>
+/* insert newblock between firstBlock and secondBlock */
+(newBlock-&gt;next = secondBlock)-&gt;prev = (newBlock-&gt;prev = firstBlock)-&gt;next = newBlock;
+</pre>
+                          </li>
+                          <li>
+<pre>
+/* NewBlock-&gt;next = secondBlock;
+NewBlock-&gt;prev = firstBlock;
+SecondBlock-&gt;prev = newBlock;
+FirstBlock-&gt;next = newBlock;
+</pre>
+                          </li>
+                        </ol>
+                      </li>
+                      <li>Error checking should be used whenever possible.
+                      V.C.6.a.iii.2 has an example. </li>
+                      <li><p>No more than one function call should appear on a line. </p>
+
+                        <ol>
+                          <li><p>/* This example has too many function calls on one line */ </p>
+
+                            <pre>char *GetName( void ); /* Prototype for Document */
+
+CodeTrace(NOTE,&rdquo;%s(%d):Name:&amp;percnt;s&rdquo;,__FILE__,__LINE__,GetName());
+</pre>
+                          </li>
+                          <li><p>/* The following is better because it reduces the
+                              number of calls on the CodeTrace() function call, and
+                              makes sure that an ABEND does not happen due to a NULL
+                            return value. */ </p>
+
+                            <pre>char *GetName( void ); /* Prototype for Document */
+char *sName = NULL;
+sName = GetName();
+if(sName == NULL)
+{
+   CodeTrace(NOTE,&rdquo;%s(%d):Returned NULL instead of a name&rdquo;,__FILE__,__LINE__);
+}
+else
+{
+   CodeTrace(NOTE,&rdquo;%s(%d):Name:%s&rdquo;,__FILE__,__LINE__,sName);
+}
+</pre>
+                          </li>
+                        </ol>
+                      </li>
+                    </ol>
+                  </li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+      <li>Serviceability, Sustaining, and Maintaining
+        <ol type="A">
+          <li>The intent of this section is to address issues related to sustaining
+            engineering efforts, serviceability of the product, as well as
+          maintenance issues </li>
+          <li>Tracing and Debug statements
+            <ol>
+              <li>The intent of this section is to describe how tracing and
+                debugging statements will be laid out. It is first important to
+                recognize that any statements, which are added with the intent to
+                debug from a development standpoint, are also invaluable to service
+              and support for gathering data. </li>
+              <li>Trace methodology
+                <ol type="a">
+                  <li>There should be no #define statements which are used for
+                    debugging in &lsquo;checked-in&rsquo; code.
+                    <ol>
+                      <li>#define debugging statements require that a product needs
+                        to be recompiled if it is to be debugged. This is VERY
+                        undesirable from a support stance. When a problem occures
+                        at a customer site, they should ne be required to
+                        recompile, or install a new executable in order to gather
+                        the necessary information. Tracing is a much better
+                      solution. </li>
+                      <li>#define statement durring development for "my machine"
+                        purposes is fine, but production code should not contain
+                      these statements. </li>
+                    </ol>
+                  </li>
+                  <li>Tracing should be used liberally except where it would effect
+                  performance. </li>
+                  <li>Use the __FILE__ and __LINE__ Pre-Compiler constants to fill
+                  in the filename and line number in any output statements. </li>
+                </ol>
+              </li>
+              <li>Trace output routines
+                <ol type="a">
+                  <li>Tracing is an important part of the continuing maintenance of
+                    a product. It can also be an invaluable tool in the testing of
+                    a product. Each project needs to have it&rsquo;s own method of
+                  tracing.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+      <li>Prior Outstanding Issues
+        <ol>
+          <li>Regarding VC3a: I disagree with the way you've written your spacing
+            requirements. I don't think it improves readability to have a space
+            after an opening parenthesis and before a closing one, and I think it
+            hinders readability to put spaces before commas and semicolons. If I
+            were designing the standard I'd probably require spaces around
+            operators, after commas and colons, and between adjacent parentheses,
+            e.g. '( (x + y) * (a - b) )' instead of '((x + y) * (a - b))'.
+            <ol>
+              <li>(Pending) <span style="color: rgb(204, 51, 204);">Agree to change</span>.</li>
+              <li>Reason: agreed with submitter. Change will be to add more
+              examples of good style. </li>
+            </ol>
+          </li>
+          <li>Proposal to change rule VC2a: The if statement 'if( I == j ) x = y;'
+            should be generally allowed.
+            <ol>
+              <li>(Pending) <span style="color: rgb(204, 51, 204);">Decline to change</span>.</li>
+              <li>Reason: The purpose of the standard is not just to normalize how
+                code looks for readability purposes but also to prevent problems
+                during the lifecycle of the product. It is certainly an accepted
+                practice to leave off the braces {} for single line blocks it leads
+                to a potential booby-trap in future revisions of the product. For
+                example, The statement:
+                <pre>if( I == j ) x = y;
+</pre>
+                <p>has to be changed so one more thing happens then the following
+                error is too easy to make:</p>
+
+                <pre>if( I == j ) x = y;
+fMessageOut(MYP_DEBUG,stderr,&rdquo;I:%d y=%d\n&rdquo;,I,y);
+</pre>
+                <p>Perhaps an exception for if() return; or a string of single line ifs.</p>
+
+              </li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+      <li>Revision History </li>
+    </ol>
+    <div align="center">
+      <table border="1" cellpadding="0" cellspacing="0">
+        <tbody>
+          <tr>
+            <td class="Normal" valign="top" width="28">Ver</td>
+            <td class="Normal" valign="top" width="100">Description</td>
+            <td class="Normal" valign="top" width="83">Author</td>
+            <td class="Normal" valign="top" width="78">Reviewer</td>
+            <td class="Normal" valign="top" width="65">Approve</td>
+          </tr>
+          <tr>
+            <td>0.1</td>
+            <td>Draft revision</td>
+            <td>APotolsky</td>
+            <td>N/A</td>
+            <td>N/A</td>
+          </tr>
+          <tr>
+            <td>0.2</td>
+            <td>Draft, Deviation from word format. Going to HTML</td>
+            <td>APotolsky</td>
+            <td>N/A</td>
+            <td>N/A</td>
+          </tr>
+          <tr>
+            <td>0.3</td>
+            <td>Removing over 3000 Word specific HTML items, combining 2 disjoint documents.</td>
+            <td>APotolsky</td>
+            <td>N/A</td>
+            <td>N/A</td>
+          </tr>
+          <tr>
+            <td>0.4</td>
+            <td>Added the indent command with option for altering braces indention. Minor versioning corrections.</td>
+            <td>APotolsky</td>
+            <td>N/A</td>
+            <td>N/A</td>
+          </tr>
+          <tr>
+            <td>0.5</td>
+            <td>Added emacs in VC4iv, changes in IIIC2, VB2D, VB2e, VB2f, VB3b, Vb3c, VB4b, VB5a, VC1, also fixed some spelling errors</td>
+            <td>APotolsky</td>
+            <td>DGordon</td>
+            <td>APotolsky</td>
+          </tr>
+          <tr>
+            <td>0.6</td>
+            <td>Added Request for comment on style. Corrections in: IVB1, VB2e, VC4d, VC5d, VIBa, IIIC5d</td>
+            <td>APotolsky</td>
+            <td>N/A</td>
+            <td>N/A</td>
+          </tr>
+          <tr>
+            <td>0.7</td>
+            <td>Response to VIBa: Declined Response to VC3a: Agreed</td>
+            <td>BHoffman</td>
+            <td>APotolsky</td>
+            <td>APotolsky</td>
+          </tr>
+          <tr>
+            <td>0.8</td>
+            <td>Formatting Changes.</td>
+            <td>APotolsky</td>
+            <td>N/A</td>
+            <td>N/A</td>
+          </tr>
+          <tr>
+            <td>0.8.1</td>
+            <td>More Formatting changes; Addition of historicle appendix; beutification; changed html pre tags for beautification; </td>
+            <td>APotolsky</td>
+            <td>N/A</td>
+            <td>N/A</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
