@@ -39,9 +39,13 @@
 #include <iostream>
 #include <string>
 
+
+// TODO: fill in usage
 void usage()
 {
-	
+	std::cout << "USAGE:" << std::endl;
+	std::cout << "  Eventually this will be filled in" << std::endl;
+
 }
 
 int main( int argc , char *argv[])
@@ -49,10 +53,11 @@ int main( int argc , char *argv[])
 	int cnt = 1; // Start at 1, 0 is the name of the executable
 
 	std::string sTeamFilename;
+	ttb_Roster * roster = new ttb_Roster();
 
 	while(NULL != argv[cnt])
 	{
-		std::cout << "DEBUG: argv[" << cnt << "]:" << argv[cnt] << std::endl;
+		std::cout << "DEBUG: cnt:" << cnt << " arg::" << argv[cnt] << std::endl;
 		if(argv[cnt][0] == '-')	{
 			if(argv[cnt][1] == 'h') {
 				usage();
@@ -66,7 +71,7 @@ int main( int argc , char *argv[])
 
 	std::cout << "DEBUG: sTeamFilename:" << sTeamFilename << std::endl;
 
-	load_teams(sTeamFilename);
+	roster->load_teams(sTeamFilename);
 
 	return 0;
 }
