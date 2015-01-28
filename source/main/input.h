@@ -36,7 +36,32 @@
 * Private routines:
 *
 *******************************************************************************/ 
+#include <vector>
 #include <iostream>
+#include <fstream>
 #include "error.h"
 
-ttb_error_t  load_teams(std::string filename);
+
+typedef struct one_team_entry {
+	std::string id;
+	std::string last;
+	std::string first;
+	std::string residence;
+	int seed;
+} team;
+
+
+class ttb_Roster
+{
+public:
+	std::vector<team> team_list;
+
+	ttb_error_t display_team_list();
+	ttb_error_t add_team(team t);
+	ttb_error_t read_next_team();
+	ttb_error_t setup_brackets();
+	ttb_error_t load_teams(std::string filename);
+
+private:
+	std::ifstream file;
+};
