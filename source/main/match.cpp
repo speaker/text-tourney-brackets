@@ -58,9 +58,18 @@ team Match::get_winner()
 // TODO: This is presently a bogus play. it is only intended to return something.
 ttb_error_t Match::play_match()
 {
-	if(team_two.a_bye() == true) winner = team_one;
-	else if(team_one.seed() <= team_two.seed()) winner = team_one;
-	else winner = team_two;
+	if(team_two.a_bye() == true) // This is ok, bye always looses
+	{
+		winner = team_one;
+	}
+	else if(team_one.seed() <= team_two.seed())
+	{
+		winner = team_one;
+	}
+	else
+	{
+		winner = team_two;
+	}
 
 	return ttb_OK;
 }
