@@ -36,9 +36,9 @@
 *******************************************************************************/ 
 #include "error.h"
 #include "input.h"
+#include "brackets.h"
 #include <iostream>
 #include <string>
-
 
 // TODO: fill in usage
 void usage()
@@ -53,7 +53,6 @@ int main( int argc , char *argv[])
 	int cnt = 1; // Start at 1, 0 is the name of the executable
 
 	std::string sTeamFilename;
-	ttb_Roster * roster = new ttb_Roster();
 
 	while(NULL != argv[cnt])
 	{
@@ -71,7 +70,10 @@ int main( int argc , char *argv[])
 
 	std::cout << "DEBUG: sTeamFilename:" << sTeamFilename << std::endl;
 
-	roster->load_teams(sTeamFilename);
+	Brackets bracket(sTeamFilename);
+
+	std::cout << "DEBUG: bracket depth:" << bracket.get_depth() << std::endl;
+
 
 	return 0;
 }

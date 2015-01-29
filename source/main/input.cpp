@@ -41,10 +41,50 @@
 
 #include "input.h"
 
+bool team::operator==(const team& A)
+{
+	if( id() == A.id() ) return true;
+
+	return false;
+}
+
+team::team(std::string _id, std::string _last, std::string _first, std::string _res, int _seed)
+{
+	team_id			= _id;
+	team_last		= _last;
+	team_first		= _first;
+	team_residence	= _res;
+	team_seed		= _seed;
+}
+
+team::team(const char * _id, const char * _last, const char * _first, const char * _res, int _seed)
+{
+	team_id			= _id;
+	team_last		= _last;
+	team_first		= _first;
+	team_residence	= _res;
+	team_seed 		= _seed;
+}
+
+team::team()
+{
+	team_id			= "!NDEF";
+	team_last		= "!NDEF";
+	team_first		= "!NDEF";
+	team_residence	= "!NDEF";
+	team_seed		= -2;
+}
+
+
+Roster::Roster(std::string filename)
+{
+	load_teams(filename);
+}
+
 //
 // This routine will read in the next line with valid data for the roster
 //
-ttb_error_t ttb_Roster::read_next_team()
+ttb_error_t Roster::read_next_team()
 {
 	std::string sOneLine("#");
 
@@ -59,26 +99,34 @@ ttb_error_t ttb_Roster::read_next_team()
 
 	std::stringstream sstream(sOneLine);
 
-	team t;
 
 	std::string seed_str = "";
 
-	getline(sstream, t.id, ',' );
-	getline(sstream, t.last, ',' );
-	getline(sstream, t.first, ',' );
-	getline(sstream, t.residence, ',' );
+	std::string tmp_id = "";
+	std::string tmp_last = "";
+	std::string tmp_first = "";
+	std::string tmp_residence = "";
+
+	getline(sstream, tmp_id, ',' );
+	getline(sstream, tmp_last, ',' );
+	getline(sstream, tmp_first, ',' );
+	getline(sstream, tmp_residence, ',' );
 
 	getline(sstream, seed_str, ',' );
 
 	//std::cout << "DEBUG: seed_str:" << seed_str << std::endl;
 
+	int tmp_seed = -1;
+
 	if( "" == seed_str ) {
-		t.seed = 0;
+		tmp_seed = 0;
 	} else {
-		std::stringstream( seed_str ) >> t.seed;
+		std::stringstream( seed_str ) >> tmp_seed;
 	}
 
 	//std::cout << "DEBUG: t.seed:" << seed_str << std::endl;
+
+	team t(tmp_id, tmp_last, tmp_first,tmp_residence, tmp_seed);
 
 	add_team(t);
 
@@ -86,7 +134,7 @@ ttb_error_t ttb_Roster::read_next_team()
 }
 
 
-ttb_error_t ttb_Roster::display_team_list()
+ttb_error_t Roster::display_team_list()
 {
 	std::cout << "\n\t\tTeam List Dump:" << std::endl;
 
@@ -95,11 +143,11 @@ ttb_error_t ttb_Roster::display_team_list()
 
 	for( ; i != team_list.end() ; i++)
 	{
-		std::cout << i->id << ": ";
-		std::cout << i->last << ", ";
-		std::cout << i->first << ", From: ";
-		std::cout << i->residence << ", Seed:";
-		std::cout << i->seed << std::endl;
+		std::cout << i->id() << ": ";
+		std::cout << i->last() << ", ";
+		std::cout << i->first() << ", From: ";
+		std::cout << i->residence() << ", Seed:";
+		std::cout << i->seed() << std::endl;
 	}
 
 	std::cout << "\t\tEnd of List" << std::endl;
@@ -107,21 +155,25 @@ ttb_error_t ttb_Roster::display_team_list()
 	return ttb_OK;
 }
 
-ttb_error_t ttb_Roster::add_team(team t)
+ttb_error_t Roster::add_team(team t)
 {
 	// nothing for now
 	team_list.push_back(t);
 	return ttb_OK;
 }
 
-ttb_error_t ttb_Roster::setup_brackets()
+ttb_error_t Roster::setup_brackets()
 {
 	// nothing for now
 	return ttb_OK;
 }
 
+ttb_error_t Roster::load_roster(std::string filename)
+{
+	return load_teams(filename);
+}
 
-ttb_error_t ttb_Roster::load_teams(std::string filename)
+ttb_error_t Roster::load_teams(std::string filename)
 {
 	file.open(filename.c_str(),std::ios::in);
 
@@ -131,8 +183,6 @@ ttb_error_t ttb_Roster::load_teams(std::string filename)
 	}
 
 	std::cout << "Filename:" << filename << std::endl;
-
-	team nt;
 
 	while(ttb_OK == read_next_team())
 	{

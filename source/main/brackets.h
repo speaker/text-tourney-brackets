@@ -36,7 +36,59 @@
 *
 *******************************************************************************/ 
 
-// This space intentionally left blank
+#include <math.h>
+#include <cmath>
+#include "input.h"
 
-// NOTE: This file may yet be eliminated as unnecessary
+class Match
+{
+public:
+	Match(team t1, team t2);
+	Match(team t1);
+
+	team get_winner();
+
+	ttb_error_t play_match();
+
+private:
+	team winner; // Winner of the match
+
+	team team_one;
+	team team_two;
+
+};
+
+class Brackets : public Roster
+{
+public:
+	Brackets(std::string f ) : Roster(f)
+	{
+		//load_roster(filename);
+		// this is a little ugly.
+		depth = (int)std::ceil( log2(team_list.size()));
+
+		// TODO: setup_brackets here? Make setup_brackets private?
+	};
+
+	ttb_error_t display_heats();
+
+	int get_depth();
+
+	ttb_error_t setup_brackets();
+
+	//static const team bye() { return the_bye; }
+	//static const team not_defined() { return team_not_defined; }
+
+
+private:
+	int depth; // The number of levels of the bracket ceiling(log2(num_of_teams))
+
+	team the_bye();
+
+	team team_not_defined();
+
+
+
+};
+
 

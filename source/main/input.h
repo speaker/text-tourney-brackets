@@ -42,26 +42,61 @@
 #include "error.h"
 
 
-typedef struct one_team_entry {
-	std::string id;
-	std::string last;
-	std::string first;
-	std::string residence;
-	int seed;
-} team;
-
-
-class ttb_Roster
+class team
 {
 public:
+	team(std::string, std::string, std::string, std::string, int);
+	team(const char *, const char *, const char *, const char *, int);
+	team();
+
+		std::string id() const				{ return team_id; }
+		const std::string last() const		{ return team_last; }
+		const std::string first() const		{ return team_first; }
+		const std::string residence() const	{ return team_residence; }
+		const int seed() const				{ return team_seed; }
+
+		ttb_error_t id(std::string str) { team_id = str; return ttb_OK; }
+		ttb_error_t last(std::string str) { team_last = str; return ttb_OK; }
+		ttb_error_t first(std::string str) { team_first = str; return ttb_OK; }
+		ttb_error_t residence(std::string str) { team_residence = str; return ttb_OK; }
+		ttb_error_t seed(int i) { team_seed = i; return ttb_OK;}
+
+		bool operator==(const team& A);
+
+		bool defined() { if(team_id == "!NDEF") return false; return true; }
+
+		bool a_bye() { if(team_id == "!BYE") return true; return false; }
+
+private:
+	std::string team_id;
+	std::string team_last;
+	std::string team_first;
+	std::string team_residence;
+	int team_seed;
+};
+
+class Roster
+{
+public:
+	Roster();
+
+	Roster(std::string filename);
+
 	std::vector<team> team_list;
 
 	ttb_error_t display_team_list();
 	ttb_error_t add_team(team t);
 	ttb_error_t read_next_team();
 	ttb_error_t setup_brackets();
-	ttb_error_t load_teams(std::string filename);
+	ttb_error_t load_roster(std::string filename);
+
+	int size() { return team_list.size(); }
+
+protected:
+		ttb_error_t load_teams(std::string filename); // TODO: necessary with constructor?
 
 private:
 	std::ifstream file;
+
+
 };

@@ -34,4 +34,51 @@
 *
 *******************************************************************************/
 
-// This space intentionally left blank
+#include "brackets.h"
+#include <math.h>
+#include <cmath>
+
+Match::Match(team t1, team t2)
+{
+	// winner is constructed as "not defined"
+	team_one = t1;
+	team_two = t2;
+}
+
+team Match::get_winner()
+{
+	if(winner.defined()) return winner;
+
+	play_match();
+
+	return winner;
+}
+
+// TODO: This is presently a bogus play. it is only intended to return something.
+ttb_error_t Match::play_match()
+{
+	if(team_two.a_bye() == true) winner = team_one;
+	else if(team_one.seed() <= team_two.seed()) winner = team_one;
+	else winner = team_two;
+
+	return ttb_OK;
+}
+
+ttb_error_t Brackets::display_heats()
+{
+	// TODO: nothing yet
+	return ttb_OK;
+}
+
+int Brackets::get_depth()
+{
+	return depth;
+}
+
+ttb_error_t Brackets::setup_brackets()
+{
+	// TODO: nothing yet
+	return ttb_OK;
+
+}
+
