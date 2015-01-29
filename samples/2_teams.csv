@@ -1,0 +1,15 @@
+# Comments may only be whole lines and the first character on the line must be a #
+# Comments and blank lines are ignored
+
+# Seed values are optional but must be uniquie if not '0' (zero)
+# A seed of 0 is the same as no seed defined
+
+# Each team (competitor) is defined in a comma separated value list
+
+# ID, Last Name, First Name, Residence, Seed
+
+a2w47,Potolsky,Adam,USA,3
+a2w48,Potolsky,Liam,USA,1
+
+# Notice: Lexi has no seed defined, this is legal
+# Notice: Alicia has seed defined as zero, this is legal
