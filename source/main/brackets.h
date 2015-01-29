@@ -63,8 +63,6 @@ class Brackets : public Roster
 public:
 	Brackets(std::string f ) : Roster(f)
 	{
-		//load_roster(filename);
-		// this is a little ugly.
 		depth = (int)std::ceil( log2(team_list.size()));
 
 		// TODO: setup_brackets here? Make setup_brackets private?
@@ -76,8 +74,7 @@ public:
 
 	ttb_error_t setup_brackets();
 
-	//static const team bye() { return the_bye; }
-	//static const team not_defined() { return team_not_defined; }
+	int team_count() { return team_list.size(); }
 
 
 private:

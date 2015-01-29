@@ -72,7 +72,10 @@ int main( int argc , char *argv[])
 
 	Brackets bracket(sTeamFilename);
 
+	std::cout << "DEBUG: number of teams:" << bracket.team_count() << std::endl;
+
 	std::cout << "DEBUG: bracket size:" << bracket.size() << std::endl;
+
 	std::cout << "DEBUG: bracket depth:" << bracket.get_depth() << std::endl;
 
 

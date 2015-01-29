@@ -82,6 +82,9 @@ public:
 
 	Roster(std::string filename);
 
+	// NOTE: team_list contains the real teams in the bracket. It must not include bye-teams.
+	// The bye-teams are added when the brackets are built.
+
 	std::vector<team> team_list;
 
 	ttb_error_t display_team_list();
