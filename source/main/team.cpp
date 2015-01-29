@@ -1,5 +1,3 @@
-#pragma once
-
 /*******************************************************************************
 * 
 *    text-tourney-brackets
@@ -22,8 +20,8 @@
 *    with this program; if not, write to the Free Software Foundation, Inc.,
 *    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 *
-* Filename:      brackets.h
-* Description:   brackets.h contains the definitions for brackets.cpp
+* Filename:      team.cpp
+* Description:   team.cpp contains the execuation entry routine
 * Notations:
 *
 * Author:        Adam  Potolsky
@@ -31,62 +29,48 @@
 * Revision History:  Under Revision Control
 *
 * Public Routines:
+*  int  load_teams(std::string filename);
 *
 * Private routines:
 *
 *******************************************************************************/ 
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
 
-#include <math.h>
-#include <cmath>
 #include "team.h"
-#include "roster.h"
 
-class Match
+bool team::operator==(const team& A)
 {
-public:
-	Match(team t1, team t2);
-	Match(team t1);
+	if( id() == A.id() ) return true;
 
-	team get_winner();
+	return false;
+}
 
-	ttb_error_t play_match();
-
-private:
-	team winner; // Winner of the match
-
-	team team_one;
-	team team_two;
-
-};
-
-class Brackets : public Roster
+team::team(std::string _id, std::string _last, std::string _first, std::string _res, int _seed)
 {
-public:
-	Brackets(std::string f ) : Roster(f)
-	{
-		depth = (int)std::ceil( log2(team_list.size()));
+	team_id			= _id;
+	team_last		= _last;
+	team_first		= _first;
+	team_residence	= _res;
+	team_seed		= _seed;
+}
 
-		// TODO: setup_brackets here? Make setup_brackets private?
-	};
+team::team(const char * _id, const char * _last, const char * _first, const char * _res, int _seed)
+{
+	team_id			= _id;
+	team_last		= _last;
+	team_first		= _first;
+	team_residence	= _res;
+	team_seed 		= _seed;
+}
 
-	ttb_error_t display_heats();
-
-	int get_depth();
-
-	ttb_error_t setup_brackets();
-
-	int team_count() { return team_list.size(); }
-
-
-private:
-	int depth; // The number of levels of the bracket ceiling(log2(num_of_teams))
-
-	team the_bye();
-
-	team team_not_defined();
-
-
-
-};
-
-
+team::team()
+{
+	team_id			= "!NDEF";
+	team_last		= "!NDEF";
+	team_first		= "!NDEF";
+	team_residence	= "!NDEF";
+	team_seed		= -2;
+}

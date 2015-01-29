@@ -35,7 +35,8 @@
 *
 *******************************************************************************/ 
 #include "error.h"
-#include "input.h"
+#include "team.h"
+#include "roster.h"
 #include "brackets.h"
 #include <iostream>
 #include <string>

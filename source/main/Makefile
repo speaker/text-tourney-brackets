@@ -1,6 +1,6 @@
 # First pass ultra simple Makefile
 
-SOURCES = main.cpp brackets.cpp input.cpp
+SOURCES = main.cpp brackets.cpp team.cpp roster.cpp
 HEADERS = brackets.h
 
 brackets: $(SOURCES) $(HEADERS)

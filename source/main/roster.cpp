@@ -20,8 +20,8 @@
 *    with this program; if not, write to the Free Software Foundation, Inc.,
 *    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 *
-* Filename:      input.cpp
-* Description:   input.cpp contains the execuation entry routine
+* Filename:      roster.cpp
+* Description:   roster.cpp contains the execuation entry routine
 * Notations:
 *
 * Author:        Adam  Potolsky
@@ -39,41 +39,8 @@
 #include <sstream>
 #include <string>
 
-#include "input.h"
-
-bool team::operator==(const team& A)
-{
-	if( id() == A.id() ) return true;
-
-	return false;
-}
-
-team::team(std::string _id, std::string _last, std::string _first, std::string _res, int _seed)
-{
-	team_id			= _id;
-	team_last		= _last;
-	team_first		= _first;
-	team_residence	= _res;
-	team_seed		= _seed;
-}
-
-team::team(const char * _id, const char * _last, const char * _first, const char * _res, int _seed)
-{
-	team_id			= _id;
-	team_last		= _last;
-	team_first		= _first;
-	team_residence	= _res;
-	team_seed 		= _seed;
-}
-
-team::team()
-{
-	team_id			= "!NDEF";
-	team_last		= "!NDEF";
-	team_first		= "!NDEF";
-	team_residence	= "!NDEF";
-	team_seed		= -2;
-}
+#include "roster.h"
+#include "team.h"
 
 
 Roster::Roster(std::string filename)
