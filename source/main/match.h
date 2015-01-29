@@ -1,9 +1,11 @@
+#pragma once
+
 /*******************************************************************************
-*
+* 
 *    text-tourney-brackets
 *
 *    Simple text driven tournament bracketing tool
-*
+*    
 *    Copyright (C) 2015  Adam Potolsky
 *
 *    This program is free software; you can redistribute it and/or modify
@@ -20,8 +22,8 @@
 *    with this program; if not, write to the Free Software Foundation, Inc.,
 *    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 *
-* Filename:      brackets.cpp
-* Description:   brackets.cpp contains the bracketing source
+* Filename:      match.h
+* Description:   match.h contains the definitions for match.cpp
 * Notations:
 *
 * Author:        Adam  Potolsky
@@ -32,28 +34,27 @@
 *
 * Private routines:
 *
-*******************************************************************************/
+*******************************************************************************/ 
 
-#include "brackets.h"
-#include "match.h"
 #include <math.h>
 #include <cmath>
+#include "team.h"
+#include "roster.h"
 
-ttb_error_t Brackets::display_heats()
+class Match
 {
-	// TODO: nothing yet
-	return ttb_OK;
-}
+public:
+	Match(team t1, team t2);
+	Match(team t1);
 
-int Brackets::get_depth()
-{
-	return depth;
-}
+	team get_winner();
 
-ttb_error_t Brackets::setup_brackets()
-{
-	// TODO: nothing yet
-	return ttb_OK;
+	ttb_error_t play_match();
 
-}
+private:
+	team winner; // Winner of the match
 
+	team team_one;
+	team team_two;
+
+};

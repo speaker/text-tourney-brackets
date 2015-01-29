@@ -40,24 +40,7 @@
 #include <cmath>
 #include "team.h"
 #include "roster.h"
-
-class Match
-{
-public:
-	Match(team t1, team t2);
-	Match(team t1);
-
-	team get_winner();
-
-	ttb_error_t play_match();
-
-private:
-	team winner; // Winner of the match
-
-	team team_one;
-	team team_two;
-
-};
+#include "match.h"
 
 class Brackets : public Roster
 {

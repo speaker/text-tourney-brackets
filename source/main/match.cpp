@@ -20,8 +20,8 @@
 *    with this program; if not, write to the Free Software Foundation, Inc.,
 *    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 *
-* Filename:      brackets.cpp
-* Description:   brackets.cpp contains the bracketing source
+* Filename:      match.cpp
+* Description:   match.cpp contains the match source
 * Notations:
 *
 * Author:        Adam  Potolsky
@@ -39,21 +39,29 @@
 #include <math.h>
 #include <cmath>
 
-ttb_error_t Brackets::display_heats()
+Match::Match(team t1, team t2)
 {
-	// TODO: nothing yet
-	return ttb_OK;
+	// winner is constructed as "not defined"
+	team_one = t1;
+	team_two = t2;
 }
 
-int Brackets::get_depth()
+team Match::get_winner()
 {
-	return depth;
+	if(winner.defined()) return winner;
+
+	play_match();
+
+	return winner;
 }
 
-ttb_error_t Brackets::setup_brackets()
+// TODO: This is presently a bogus play. it is only intended to return something.
+ttb_error_t Match::play_match()
 {
-	// TODO: nothing yet
-	return ttb_OK;
+	if(team_two.a_bye() == true) winner = team_one;
+	else if(team_one.seed() <= team_two.seed()) winner = team_one;
+	else winner = team_two;
 
+	return ttb_OK;
 }
 
