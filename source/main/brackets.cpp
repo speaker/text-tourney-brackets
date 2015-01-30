@@ -52,8 +52,46 @@ int Brackets::get_depth()
 
 ttb_error_t Brackets::setup_brackets()
 {
+
+
 	// TODO: nothing yet
 	return ttb_OK;
 
 }
+
+// This does not populate the brackets, only creates he tree structure
+
+ttb_error_t Brackets::start_bracket_tree(int cur_depth)
+{
+
+	// There must be a competitor
+	if(team_list.size() == 0)
+	{
+		return ttb_no_roster;
+	}
+
+	// The winner is the only team in the bracket
+	if(team_list.size() == 1)
+	{
+		return ttb_OK;
+	}
+
+	finals.match_one( build_bracket_node(0) );
+
+	finals.match_two( build_bracket_node(0) );
+
+	return ttb_OK;
+}
+
+
+Match * Brackets::build_bracket_node(int cur_depth)
+{
+	if(cur_depth == depth) return NULL;
+
+	Match * m1 = build_bracket_node(cur_depth+1);
+	Match * m2 = build_bracket_node(cur_depth+1);
+
+	return (new Match(m1,m2));
+}
+
 

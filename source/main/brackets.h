@@ -68,7 +68,11 @@ private:
 
 	team team_not_defined();
 
+	Match finals;
 
+	Match * build_bracket_node(int cur_depth);
+
+	ttb_error_t start_bracket_tree(int cur_depth);
 
 };
 

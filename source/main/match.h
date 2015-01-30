@@ -44,17 +44,27 @@
 class Match
 {
 public:
+	Match(Match * m1, Match * m2);
 	Match(team t1, team t2);
 	Match(team t1);
+	Match();
 
 	team get_winner();
 
 	ttb_error_t play_match();
 
+	ttb_error_t	match_one(Match * m);
+
+	ttb_error_t	match_two(Match * m);
+
+
 private:
 	team winner; // Winner of the match
 
-	team team_one;
-	team team_two;
+	team team_1;
+	team team_2;
+
+	Match * match_1;
+	Match * match_2;
 
 };

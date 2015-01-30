@@ -39,11 +39,35 @@
 #include <math.h>
 #include <cmath>
 
+
+// A match is comprised of 2 teams, one of which becomes a winner.
 Match::Match(team t1, team t2)
 {
 	// winner is constructed as "not defined"
-	team_one = t1;
-	team_two = t2;
+	team_1 = t1;
+	team_2 = t2;
+
+	match_1 = NULL;
+	match_2 = NULL;
+
+}
+
+// A match is comprised of 2 teams, one of which becomes a winner.
+Match::Match()
+{
+	// winner is constructed as "not defined"
+
+	match_1 = NULL;
+	match_2 = NULL;
+
+}
+
+Match::Match(Match * m1, Match * m2)
+{
+	// winner is constructed as "not defined"
+	match_1 = m1;
+	match_2 = m2;
+
 }
 
 team Match::get_winner()
@@ -55,20 +79,45 @@ team Match::get_winner()
 	return winner;
 }
 
+ttb_error_t	Match::match_one(Match * m)
+{
+	match_1 = m;
+	return ttb_OK;
+}
+
+ttb_error_t	Match::match_two(Match * m)
+{
+	match_2 = m;
+	return ttb_OK;
+}
+
+
 // TODO: This is presently a bogus play. it is only intended to return something.
 ttb_error_t Match::play_match()
 {
-	if(team_two.a_bye() == true) // This is ok, bye always looses
+	if(false == team_1.defined())
 	{
-		winner = team_one;
+		match_1->play_match();
+		team_1 = match_1->winner;
 	}
-	else if(team_one.seed() <= team_two.seed())
+
+	if(false == team_2.defined())
 	{
-		winner = team_one;
+		match_2->play_match();
+		team_2 = match_2->winner;
+	}
+
+	if(team_2.a_bye() == true) // This is ok, bye always looses
+	{
+		winner = team_1;
+	}
+	else if(team_1.seed() <= team_2.seed()) //TODO: Some way to solve a match
+	{
+		winner = team_1;
 	}
 	else
 	{
-		winner = team_two;
+		winner = team_2;
 	}
 
 	return ttb_OK;
