@@ -3,6 +3,7 @@ BRACKETS_DIR = $(SOURCE_DIR)/main
 BRACKETS_EXE = brackets
 BRACKETS_PATH = $(BRACKETS_DIR)/$(BRACKETS_EXE)
 BIN_DIR = bin
+DEBUG = -g
 
 .PHONY: brackets
 
