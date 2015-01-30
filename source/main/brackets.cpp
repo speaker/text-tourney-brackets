@@ -61,7 +61,7 @@ ttb_error_t Brackets::setup_brackets()
 
 // This does not populate the brackets, only creates he tree structure
 
-ttb_error_t Brackets::start_bracket_tree(int cur_depth)
+ttb_error_t Brackets::start_bracket_tree()
 {
 
 	// There must be a competitor

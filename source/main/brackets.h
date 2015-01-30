@@ -49,7 +49,7 @@ public:
 	{
 		depth = (int)std::ceil( log2(team_list.size()));
 
-		// TODO: setup_brackets here? Make setup_brackets private?
+		start_bracket_tree();
 	};
 
 	ttb_error_t display_heats();
@@ -72,7 +72,7 @@ private:
 
 	Match * build_bracket_node(int cur_depth);
 
-	ttb_error_t start_bracket_tree(int cur_depth);
+	ttb_error_t start_bracket_tree();
 
 };
 
