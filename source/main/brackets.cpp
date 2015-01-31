@@ -53,6 +53,20 @@ int Brackets::get_depth()
 ttb_error_t Brackets::setup_brackets()
 {
 
+	// This is a temp list to hold the teams and the byes used to fill the 1st round
+	std::vector<team> bracket_list; // this is a copy of the team_list with byes added
+
+	bracket_list = team_list;
+
+	// Add a number of byes to fill the list
+	int add_byes = pow(2,depth) - bracket_list.size();
+
+	for( ; 0 < add_byes ; add_byes-- )
+	{
+		bracket_list.push_back(make_a_bye());
+	}
+
+
 
 	// TODO: nothing yet
 	return ttb_OK;
