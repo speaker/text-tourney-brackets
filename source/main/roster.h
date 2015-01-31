@@ -61,6 +61,8 @@ public:
 	ttb_error_t setup_brackets();
 	ttb_error_t load_roster(std::string filename);
 
+	team make_a_bye();
+
 	int size() { return team_list.size(); }
 
 protected:

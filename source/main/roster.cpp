@@ -48,6 +48,11 @@ Roster::Roster(std::string filename)
 	load_teams(filename);
 }
 
+team Roster::make_a_bye()
+{
+	return team("!BYE","!BYE","!BYE","!BYE",-1);
+}
+
 //
 // This routine will read in the next line with valid data for the roster
 //
