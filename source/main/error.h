@@ -44,6 +44,7 @@ typedef enum ttb_error_codes {
 	ttb_OK = 0,
 	ttb_EOF = 10,
 	ttb_no_roster = 20,
+	ttb_match_full = 30,
 
 
 	// Do not add error codes below this entry
