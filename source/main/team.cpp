@@ -74,3 +74,24 @@ team::team()
 	team_residence	= "!NDEF";
 	team_seed		= -2;
 }
+
+const std::string team::to_str() const
+{
+	std::string str("ID:");
+	str.append(id());
+	str.append(" Last:");
+	str.append(last());
+	str.append(" First:");
+	str.append(first());
+	str.append(" Res:");
+	str.append(residence());
+
+	std::ostringstream tmp;
+	tmp << seed();
+	std::string seed_str(tmp.str());
+
+	str.append(" Seed:");
+	str.append(seed_str);
+
+	return str;
+}
