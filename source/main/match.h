@@ -51,12 +51,25 @@ public:
 	Match();
 
 	team get_winner();
+	team get_loser();
 
 	ttb_error_t play_match();
 
 	ttb_error_t	match_one(Match * m);
 
 	ttb_error_t	match_two(Match * m);
+
+	Match match_one() { return *match_1; }
+
+	Match match_two() { return *match_2; }
+
+	bool match_one_defined() { if(NULL == match_1) return false; return true; }
+
+	bool match_two_defined() { if(NULL == match_2) return false; return true; }
+
+	team team_one() { return team_1; }
+	team team_two() { return team_2; }
+
 
 	ttb_error_t add_team(team);
 
@@ -71,6 +84,7 @@ private:
 	bool go_left();
 
 	team winner; // Winner of the match
+	team loser; // Winner of the match
 
 	team team_1;
 	team team_2;

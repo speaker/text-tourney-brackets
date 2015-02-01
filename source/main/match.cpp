@@ -132,6 +132,15 @@ team Match::get_winner()
 	return winner;
 }
 
+team Match::get_loser()
+{
+	if(loser.defined()) return loser;
+
+	play_match();
+
+	return loser;
+}
+
 ttb_error_t	Match::match_one(Match * m)
 {
 	match_1 = m;
@@ -167,10 +176,12 @@ ttb_error_t Match::play_match()
 	else if(team_1.seed() <= team_2.seed()) //TODO: Some way to solve a match
 	{
 		winner = team_1;
+		loser = team_2;
 	}
 	else
 	{
 		winner = team_2;
+		loser = team_1;
 	}
 
 	return ttb_OK;
