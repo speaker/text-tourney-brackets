@@ -43,30 +43,83 @@
 // A match is comprised of 2 teams, one of which becomes a winner.
 Match::Match(team t1, team t2)
 {
+	left_or_right = 0;
 	// winner is constructed as "not defined"
 	team_1 = t1;
 	team_2 = t2;
 
 	match_1 = NULL;
 	match_2 = NULL;
-
 }
 
 // A match is comprised of 2 teams, one of which becomes a winner.
 Match::Match()
 {
+	left_or_right = 0;
+
 	// winner is constructed as "not defined"
 
 	match_1 = NULL;
 	match_2 = NULL;
-
 }
 
 Match::Match(Match * m1, Match * m2)
 {
+	left_or_right = 0;
+
 	// winner is constructed as "not defined"
 	match_1 = m1;
 	match_2 = m2;
+}
+
+bool Match::go_left()
+{
+	if( left_or_right[0] == left_or_right[1] ) return true;
+	return false;
+}
+
+// Bracket trees are complete. They always have a full set of matches even if
+// every competitor has a bye except 2. For this reason, it is safe to assume
+// If there is one match there are 2.
+// If there are no matches, populate myself
+// If there are subordinate matches, pass the team to the correct one of them.
+// Once the subordinate matches are full, this one shoudl populate itself.
+// When full, it should return ttb_match_full
+
+ttb_error_t Match::add_team(team t)
+{
+	// If both teams are defined, the match is full.
+	if(team_1.defined() && team_2.defined()) return ttb_match_full;
+
+	// No match means populate this match.
+	if(NULL == match_1)
+	{
+		if( true == go_left())
+		{
+			team_1 = t;
+		}
+		else
+		{
+			team_2 = t;
+		}
+		left_or_right = left_or_right.to_ulong() + 1; // TODO: This is a kludge
+
+		return ttb_OK;
+	}
+
+	// Need to load the match beneath us
+
+	if( true == go_left())
+	{
+		match_1->add_team(t);
+	}
+	else
+	{
+		match_2->add_team(t);
+	}
+	left_or_right = left_or_right.to_ulong() + 1;
+
+	return ttb_OK;
 
 }
 
@@ -122,4 +175,3 @@ ttb_error_t Match::play_match()
 
 	return ttb_OK;
 }
-

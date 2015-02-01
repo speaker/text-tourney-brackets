@@ -38,6 +38,7 @@
 
 #include <math.h>
 #include <cmath>
+#include <bitset>
 #include "team.h"
 #include "roster.h"
 
@@ -57,8 +58,18 @@ public:
 
 	ttb_error_t	match_two(Match * m);
 
+	ttb_error_t add_team(team);
+
 
 private:
+	// TODO: Should a match really understand the structure of the bracket other than 2 teams?
+
+	// When teams are added to this match they might need to fall to a lower match first.
+	//
+	std::bitset<2> left_or_right;
+
+	bool go_left();
+
 	team winner; // Winner of the match
 
 	team team_1;
