@@ -66,6 +66,14 @@ ttb_error_t Brackets::setup_brackets()
 		bracket_list.push_back(make_a_bye());
 	}
 
+	std::vector<team>::const_iterator i = bracket_list.begin();
+
+	for( ; i != bracket_list.end() ; i++)
+	{
+		std::cout << "DEBUG ADDING: " << i->to_str() << std::endl;
+
+		finals.add_team(*i);
+	}
 
 
 	// TODO: nothing yet
