@@ -70,6 +70,7 @@ public:
 	team team_one() { return team_1; }
 	team team_two() { return team_2; }
 
+	bool defined();
 
 	ttb_error_t add_team(team);
 

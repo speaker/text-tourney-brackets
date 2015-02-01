@@ -123,21 +123,15 @@ ttb_error_t Match::add_team(team t)
 
 }
 
+// The winner can be undefined
 team Match::get_winner()
 {
-	if(winner.defined()) return winner;
-
-	play_match();
-
 	return winner;
 }
 
+// The loser can be undefined
 team Match::get_loser()
 {
-	if(loser.defined()) return loser;
-
-	play_match();
-
 	return loser;
 }
 
@@ -185,4 +179,16 @@ ttb_error_t Match::play_match()
 	}
 
 	return ttb_OK;
+}
+
+bool Match::defined()
+{
+	// if there is a team or match in _1_ and a team or match in _2_ than it's defined
+	// otherwise it's not defined or partially defined. This routine treats either as not defined
+
+	if( (team_1.defined() || (NULL != match_1) ) && (team_2.defined() || (NULL != match_2) ) )
+	{
+		return true;
+	}
+	return false;
 }
