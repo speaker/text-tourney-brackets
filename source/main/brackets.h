@@ -53,10 +53,13 @@ public:
 	};
 
 	ttb_error_t display_heats();
+	ttb_error_t display_heat( Match , int, int, int);
 
 	int get_depth();
 
 	ttb_error_t setup_brackets();
+
+	int size() { return pow(2,depth); }
 
 	int team_count() { return team_list.size(); }
 

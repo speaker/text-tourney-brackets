@@ -38,10 +38,101 @@
 #include "match.h"
 #include <math.h>
 #include <cmath>
+#include <string>
 
+// This first displays the finals then calls a recursive routine to output the rest of the bracket
 ttb_error_t Brackets::display_heats()
 {
-	// TODO: nothing yet
+	int curr_depth = 0;
+	// TODO: Strings should be defined in an external system that allows for L10N and I18N as well as sports specific terms
+	if(finals.get_winner().defined())
+	{
+		std::cout << "1st: " << finals.get_winner().last() << ", " << finals.get_winner().first() << std::endl;
+		std::cout << "2nd: " << finals.get_loser().last() << ", " << finals.get_loser().first() << std::endl; //TODO: handle bye
+
+		if(finals.match_one_defined())
+		{
+			std::cout << "3rd: " << finals.match_one().get_loser().last() << ", " << finals.match_one().get_loser().first() << std::endl;
+		}
+		if(finals.match_two_defined())
+		{
+			std::cout << "3rd: " << finals.match_two().get_loser().last() << ", " << finals.match_two().get_loser().first() << std::endl;
+		}
+		std::cout << std::endl;
+		std::cout << "Full Bracket results:" << std::endl;
+	}
+
+	// Note: The match numbers are easy for the finals. The rest of the matches, not so much
+
+	std::cout << "Match " << ( size()-1 ) << ":";
+
+	if(finals.match_one().get_winner().defined())
+	{
+		std::cout << finals.match_one().get_winner().last() << " vs. ";
+	}
+	else
+	{
+		std::cout << "Winner of match " << ( size()-3 ) <<" vs. ";
+	}
+
+	if(finals.match_two().get_winner().defined())
+	{
+		std::cout << finals.match_two().get_winner().last() << " vs. ";
+	}
+	else
+	{
+		std::cout << "Winner of match " << ( size()-2 ) << std::endl;
+	}
+
+	// The 3rd argument to display heat is the depth of that match. This is needed so it can predict
+	// the match numbers it will call.
+
+	if(finals.match_one_defined())	display_heat(finals.match_one(), size()-3 , 2, 0);
+
+	if(finals.match_two_defined())	display_heat(finals.match_two(), size()-2 , 2, 1);
+
+
+	return ttb_OK;
+}
+
+//TODO: bit_mask is not a very good name
+
+ttb_error_t Brackets::display_heat(Match m, int match_number, int depth, int bit_mask)
+{
+	std::cout << "Match " << match_number << ":";
+
+	if(m.team_one().defined())
+	{
+		std::cout << m.team_one().last() << " vs. ";
+	}
+	else
+	{
+		std::cout << "Winner of match " << ( size()-3 ) <<" vs. ";
+	}
+
+	if(m.team_two().defined())
+	{
+		std::cout << m.team_two().last() << std::endl;
+	}
+	else
+	{
+		std::cout << "Winner of match " << ( size()-2 ) << std::endl;
+	}
+
+
+
+	if(m.match_one().get_winner().defined())
+	{
+		std::cout << m.match_one().get_winner().last() << ", " << m.get_winner().first() << std::endl;
+		std::cout << " vs. ";
+	}
+	else
+	if(m.match_two().match_two().get_winner().defined())
+	{
+		std::cout << m.get_winner().last() << ", " << m.get_winner().first() << std::endl;
+		std::cout << " vs. ";
+	}
+
 	return ttb_OK;
 }
 
@@ -59,7 +150,7 @@ ttb_error_t Brackets::setup_brackets()
 	bracket_list = team_list;
 
 	// Add a number of byes to fill the list
-	int add_byes = pow(2,depth) - bracket_list.size();
+	int add_byes = size() - bracket_list.size();
 
 	for( ; 0 < add_byes ; add_byes-- )
 	{
