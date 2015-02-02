@@ -63,6 +63,9 @@ public:
 
 	int team_count() { return team_list.size(); }
 
+	int calc_left_match_start(int , int );
+
+
 
 private:
 	int depth; // The number of levels of the bracket ceiling(log2(num_of_teams))
