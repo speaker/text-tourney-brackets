@@ -1,0 +1,42 @@
+# Comments may only be whole lines and the first character on the line must be a #
+# Comments and blank lines are ignored
+
+# Seed values are optional but must be uniquie if not '0' (zero)
+# A seed of 0 is the same as no seed defined
+
+# Each team (competitor) is defined in a comma separated value list
+
+# ID, Last Name, First Name, Residence, Seed
+
+ID_00,team_01_last,team_01_first,USA_01,1
+ID_01,team_02_last,team_02_first,USA_02,2
+ID_02,team_03_last,team_03_first,USA_03,3
+ID_03,team_04_last,team_04_first,USA_04,4
+ID_04,team_05_last,team_05_first,USA_05,5
+ID_05,team_06_last,team_06_first,USA_06,6
+ID_06,team_07_last,team_07_first,USA_07,7
+ID_07,team_08_last,team_08_first,USA_08,8
+ID_08,team_09_last,team_09_first,USA_09,9
+ID_09,team_10_last,team_10_first,USA_10,10
+ID_10,team_11_last,team_11_first,USA_11,11
+ID_11,team_12_last,team_12_first,USA_12,12
+ID_12,team_13_last,team_13_first,USA_13,13
+ID_13,team_14_last,team_14_first,USA_14,14
+ID_14,team_15_last,team_15_first,USA_15,15
+ID_15,team_16_last,team_16_first,USA_16,16
+ID_16,team_17_last,team_17_first,USA_17,17
+ID_17,team_18_last,team_18_first,USA_18,18
+ID_18,team_19_last,team_19_first,USA_19,19
+ID_19,team_20_last,team_10_first,USA_20,20
+ID_20,team_21_last,team_21_first,USA_21,21
+ID_21,team_22_last,team_22_first,USA_22,22
+ID_22,team_23_last,team_23_first,USA_23,23
+ID_23,team_24_last,team_24_first,USA_24,24
+ID_24,team_25_last,team_25_first,USA_25,25
+ID_25,team_26_last,team_26_first,USA_26,26
+ID_26,team_27_last,team_27_first,USA_27,27
+ID_27,team_28_last,team_28_first,USA_28,28
+ID_28,team_29_last,team_29_first,USA_29,29
+
+# Notice: Lexi has no seed defined, this is legal
+# Notice: Alicia has seed defined as zero, this is legal
