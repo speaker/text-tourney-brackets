@@ -101,7 +101,7 @@ int Brackets::calc_left_match_start(int depth_start_count, int curr_depth)
 {
 	int num = depth_start_count-pow(2,curr_depth);
 
-	std::cout << "DEBUG:    calc_left_match_start:" << num << std::endl;
+	//std::cout << "DEBUG:    calc_left_match_start:" << num << std::endl;
 	return num;
 }
 
@@ -110,15 +110,15 @@ int Brackets::calc_left_match_start(int depth_start_count, int curr_depth)
 
 ttb_error_t Brackets::display_heat(Match m, int depth_start_count, int curr_depth, int bit_mask)
 {
-	std::cout << "DEBUG: ========================================== Start display_heat() =============================" << std::endl;
+	//std::cout << "DEBUG: ========================================== Start display_heat() =============================" << std::endl;
 	int match_number = depth_start_count + bit_mask;
 
 	int left_sub_match_number = calc_left_match_start(depth_start_count,curr_depth+1);
-	std::cout << "DEBUG: depth_start_count:" << depth_start_count << " curr_depth:" << curr_depth << " bit_mask:" << bit_mask << std::endl;
-	std::cout << "DEBUG: match_number:" << left_sub_match_number << " curr_depth:" << left_sub_match_number << std::endl;
+	//std::cout << "DEBUG: depth_start_count:" << depth_start_count << " curr_depth:" << curr_depth << " bit_mask:" << bit_mask << std::endl;
+	//std::cout << "DEBUG: match_number:" << left_sub_match_number << " curr_depth:" << left_sub_match_number << std::endl;
 
 
-	std::cout << "Match " << match_number << ":";
+	std::cout << "Match " << match_number << "("<< bit_mask <<"):";
 
 	if(m.team_one().defined())
 	{
@@ -138,14 +138,14 @@ ttb_error_t Brackets::display_heat(Match m, int depth_start_count, int curr_dept
 		std::cout << "Winner of match " << left_sub_match_number+1 << std::endl;
 	}
 
-	if(m.match_one_defined()) { std::cout << "DEBUG: Match 1 defined:" << m.match_one().team_one().id() << std::endl;	}
-	if(m.match_two_defined()) { std::cout << "DEBUG: Match 2 defined:" << m.match_two().team_one().id() << std::endl;	}
+	//if(m.match_one_defined()) { std::cout << "DEBUG: Match 1 defined:" << m.match_one().team_one().id() << std::endl;	}
+	//if(m.match_two_defined()) { std::cout << "DEBUG: Match 2 defined:" << m.match_two().team_one().id() << std::endl;	}
 
-	std::cout << "DEBUG: ========================================== End display_heat() =============================" << std::endl << std::endl;
+	//std::cout << "DEBUG: ========================================== End display_heat() =============================" << std::endl << std::endl;
 
-	if(m.match_one_defined()) display_heat(m.match_one(),left_sub_match_number,curr_depth+1, (bit_mask << 0) );
+	if(m.match_one_defined()) display_heat(m.match_one(),left_sub_match_number,curr_depth+1, (0 + (bit_mask <<= 1)) );
 
-	if(m.match_two_defined()) display_heat(m.match_two(),left_sub_match_number,curr_depth+1, (bit_mask << 1) );
+	if(m.match_two_defined()) display_heat(m.match_two(),left_sub_match_number,curr_depth+1, (1 + (bit_mask <<= 1)) );
 
 	return ttb_OK;
 }
