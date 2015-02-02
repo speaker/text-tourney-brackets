@@ -43,6 +43,10 @@
 // A match is comprised of 2 teams, one of which becomes a winner.
 Match::Match(team t1, team t2)
 {
+
+	winner = team();
+	loser = team();
+
 	left_or_right = 0;
 	// winner is constructed as "not defined"
 	team_1 = t1;
@@ -55,6 +59,10 @@ Match::Match(team t1, team t2)
 // A match is comprised of 2 teams, one of which becomes a winner.
 Match::Match()
 {
+
+	winner = team();
+	loser = team();
+
 	left_or_right = 0;
 
 	// winner is constructed as "not defined"
@@ -66,6 +74,9 @@ Match::Match()
 Match::Match(Match * m1, Match * m2)
 {
 	left_or_right = 0;
+
+	winner = team();
+	loser = team();
 
 	// winner is constructed as "not defined"
 	match_1 = m1;
