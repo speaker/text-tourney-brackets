@@ -40,6 +40,13 @@
 #include <cmath>
 #include <string>
 
+Brackets::Brackets(std::string f ) : Roster(f)
+{
+	depth = (int)std::ceil( log2(team_list.size()));
+
+	start_bracket_tree();
+}
+
 // Each match will display:
 // 1) It's left-subordinate match _XOR_ it's left-team if there are none
 // 2) It's winner or --------- if it's not determined
@@ -152,9 +159,9 @@ ttb_error_t Brackets::display_heats()
 	// The 3rd argument to display heat is the depth of that match. This is needed so it can predict
 	// the match numbers it will call.
 
-	if(finals.match_one_defined())	display_heat(finals.match_one(), size()-3 , 1, 0);
+	if(finals.match_one_defined())	_display_heat(finals.match_one(), size()-3 , 1, 0);
 
-	if(finals.match_two_defined())	display_heat(finals.match_two(), size()-2 , 1, 1);
+	if(finals.match_two_defined())	_display_heat(finals.match_two(), size()-2 , 1, 1);
 
 
 	return ttb_OK;
@@ -170,7 +177,7 @@ int Brackets::calc_left_match_start(int depth_start_count, int curr_depth)
 
 //TODO: bit_mask is not a very good name
 
-ttb_error_t Brackets::display_heat(Match m, int depth_start_count, int curr_depth, int bit_mask)
+ttb_error_t Brackets::_display_heat(Match m, int depth_start_count, int curr_depth, int bit_mask)
 {
 	int match_number = depth_start_count + bit_mask;
 
@@ -196,9 +203,9 @@ ttb_error_t Brackets::display_heat(Match m, int depth_start_count, int curr_dept
 		std::cout << "Winner of match " << left_sub_match_number+1 << std::endl;
 	}
 
-	if(m.match_one_defined()) display_heat(m.match_one(),left_sub_match_number,curr_depth+1, (0 + (bit_mask <<= 1)) );
+	if(m.match_one_defined()) _display_heat(m.match_one(),left_sub_match_number,curr_depth+1, (0 + (bit_mask <<= 1)) );
 
-	if(m.match_two_defined()) display_heat(m.match_two(),left_sub_match_number,curr_depth+1, (1 + (bit_mask <<= 1)) );
+	if(m.match_two_defined()) _display_heat(m.match_two(),left_sub_match_number,curr_depth+1, (1 + (bit_mask <<= 1)) );
 
 	return ttb_OK;
 }

@@ -45,44 +45,42 @@
 class Brackets : public Roster
 {
 public:
-	Brackets(std::string f ) : Roster(f)
-	{
-		depth = (int)std::ceil( log2(team_list.size()));
+	Brackets(std::string);
 
-		start_bracket_tree();
-	};
+	ttb_error_t setup_brackets();	// Builds empty bracket tree
 
-	ttb_error_t show_bracket();
+	ttb_error_t show_bracket();		// displays "pretty" match tree
+	ttb_error_t display_heats();	// dumps the matches
+	int get_depth();				// returns the # of bracket levels
 
-	ttb_error_t display_heats();
-	ttb_error_t display_heat( Match , int, int, int);
-
-	int get_depth();
-
-	ttb_error_t setup_brackets();
-
+	// number of matches in complete tree
 	int size() { return pow(2,depth); }
 
+	// returns the number of real teams in the bracket (no byes)
 	int team_count() { return team_list.size(); }
-
-	int calc_left_match_start(int , int );
-
 
 
 private:
-	int depth; // The number of levels of the bracket ceiling(log2(num_of_teams))
+	int depth;					// The number of levels of the bracket
+	Match finals;				// Head of the tree
 
+	team the_bye();				// returns true is this is a bye
+	team team_not_defined();	// returns frue if the team isn't defined
+
+	// See function Header
+	int calc_left_match_start(int , int );
+
+	// workhorse routine to display the matches in the tree
+	ttb_error_t _display_heat( Match , int, int, int);
+
+	// workhorse routine to disply the bracket in a pretty way
 	ttb_error_t _show_bracket(Match,int);
 
-	team the_bye();
-
-	team team_not_defined();
-
-	Match finals;
-
-	Match * build_bracket_node(int cur_depth);
-
+	// Routine that kicks off the building of the bracket tree
 	ttb_error_t start_bracket_tree();
+
+	// workhorse routine to build the bracket tree
+	Match * build_bracket_node(int cur_depth);
 
 };
 
