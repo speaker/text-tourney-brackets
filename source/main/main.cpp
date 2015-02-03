@@ -57,7 +57,6 @@ int main( int argc , char *argv[])
 
 	while(NULL != argv[cnt])
 	{
-		std::cout << "DEBUG: cnt:" << cnt << " arg::" << argv[cnt] << std::endl;
 		if(argv[cnt][0] == '-')	{
 			if(argv[cnt][1] == 'h') {
 				usage();
@@ -69,7 +68,7 @@ int main( int argc , char *argv[])
 		cnt++;
 	}
 
-	std::cout << "DEBUG: sTeamFilename:" << sTeamFilename << std::endl;
+	//std::cout << "DEBUG: sTeamFilename:" << sTeamFilename << std::endl;
 
 	Brackets bracket(sTeamFilename);
 
@@ -79,11 +78,11 @@ int main( int argc , char *argv[])
 
 	bracket.show_bracket();
 
-	std::cout << "DEBUG: number of teams:" << bracket.team_count() << std::endl;
+	//std::cout << "DEBUG: number of teams:" << bracket.team_count() << std::endl;
 
-	std::cout << "DEBUG: bracket size:" << bracket.size() << std::endl;
+	//std::cout << "DEBUG: bracket size:" << bracket.size() << std::endl;
 
-	std::cout << "DEBUG: bracket depth:" << bracket.get_depth() << std::endl;
+	//std::cout << "DEBUG: bracket depth:" << bracket.get_depth() << std::endl;
 
 
 	return 0;

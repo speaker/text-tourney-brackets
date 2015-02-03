@@ -66,7 +66,6 @@ ttb_error_t Roster::read_next_team()
 		if(file.eof()) return ttb_EOF;
 
 		std::getline(file, sOneLine);
-		//std::cout << "DEBUG: sOneLine:" << sOneLine << std::endl;
 	}
 
 	std::stringstream sstream(sOneLine);
@@ -86,8 +85,6 @@ ttb_error_t Roster::read_next_team()
 
 	getline(sstream, seed_str, ',' );
 
-	//std::cout << "DEBUG: seed_str:" << seed_str << std::endl;
-
 	int tmp_seed = -1;
 
 	if( "" == seed_str ) {
@@ -95,8 +92,6 @@ ttb_error_t Roster::read_next_team()
 	} else {
 		std::stringstream( seed_str ) >> tmp_seed;
 	}
-
-	//std::cout << "DEBUG: t.seed:" << seed_str << std::endl;
 
 	team t(tmp_id, tmp_last, tmp_first,tmp_residence, tmp_seed);
 
@@ -156,10 +151,7 @@ ttb_error_t Roster::load_teams(std::string filename)
 
 	std::cout << "Filename:" << filename << std::endl;
 
-	while(ttb_OK == read_next_team())
-	{
-			//
-	}
+	do{}while(ttb_OK == read_next_team());
 
 	display_team_list();
 
