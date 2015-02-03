@@ -54,6 +54,7 @@ public:
 	team get_loser();
 
 	ttb_error_t play_match();
+	ttb_error_t play_match_by_seed(); // DEBUG routine to quickly fill bracket
 
 	ttb_error_t	match_one(Match * m);
 

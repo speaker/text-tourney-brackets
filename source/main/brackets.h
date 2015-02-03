@@ -51,6 +51,12 @@ public:
 
 	ttb_error_t show_bracket();		// displays "pretty" match tree
 	ttb_error_t display_heats();	// dumps the matches
+
+	// TODO: Make this non-bogus
+	ttb_error_t resolve();			// starts playing matches
+	ttb_error_t resolve_by_seed();	// plays matches using seed to pick winner
+
+
 	int get_depth();				// returns the # of bracket levels
 
 	// number of matches in complete tree
@@ -58,6 +64,8 @@ public:
 
 	// returns the number of real teams in the bracket (no byes)
 	int team_count() { return team_list.size(); }
+
+
 
 
 private:

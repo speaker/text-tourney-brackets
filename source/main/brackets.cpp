@@ -281,4 +281,14 @@ Match * Brackets::build_bracket_node(int cur_depth)
 	return (new Match(m1,m2));
 }
 
+ttb_error_t Brackets::resolve()
+{
+	return finals.play_match_by_seed();
+}
+
+ttb_error_t Brackets::resolve_by_seed()
+{
+	return finals.play_match_by_seed();
+}
+
 

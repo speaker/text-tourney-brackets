@@ -160,17 +160,17 @@ ttb_error_t	Match::match_two(Match * m)
 
 
 // TODO: This is presently a bogus play. it is only intended to return something.
-ttb_error_t Match::play_match()
+ttb_error_t Match::play_match_by_seed()
 {
 	if(false == team_1.defined())
 	{
-		match_1->play_match();
+		match_1->play_match_by_seed();
 		team_1 = match_1->winner;
 	}
 
 	if(false == team_2.defined())
 	{
-		match_2->play_match();
+		match_2->play_match_by_seed();
 		team_2 = match_2->winner;
 	}
 
