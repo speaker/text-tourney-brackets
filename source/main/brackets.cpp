@@ -40,6 +40,71 @@
 #include <cmath>
 #include <string>
 
+// Each match will display:
+// 1) It's left-subordinate match _XOR_ it's left-team if there are none
+// 2) It's winner or --------- if it's not determined
+// 3) It's right-subordinate match _XOR_ it's right-team if there are none
+//
+// The Any match with subordinate matches will have it's team displayed as the
+// winner of that subordinate match.
+
+ttb_error_t Brackets::show_bracket()
+{
+	std::cout << std::endl;
+	std::cout << "show_bracket" << std::endl;
+
+	_show_bracket(finals,1);
+
+	std::cout << std::endl;
+	std::cout << std::endl;
+
+}
+
+void tab_out(int cnt)
+{
+	for(int i = 0 ; i < cnt ; i++) std::cout << "\t\t";
+}
+
+ttb_error_t Brackets::_show_bracket(Match m, int curr_depth)
+{
+	// Display all matches to the left, or else the team to the left.
+	if(m.match_one_defined())
+	{
+		_show_bracket(m.match_one(),curr_depth+1);
+	}
+	else
+	{
+		tab_out(depth-curr_depth);
+		std::cout << m.team_one().last() << std::endl;
+	}
+
+	// Display the winner of the finals if there is one
+	tab_out(depth-curr_depth+1);
+
+	if(m.get_winner().defined())
+	{
+		std::cout << m.get_winner().last() << std::endl;
+	}
+	else
+	{
+		std::cout << "--------" << std::endl;
+	}
+
+	// Display all matches to the right, or else the team to the right.
+	if(m.match_two_defined())
+	{
+		_show_bracket(m.match_two(),curr_depth+1);
+	}
+	else
+	{
+		tab_out(depth-curr_depth);
+		std::cout << m.team_two().last() << std::endl;
+	}
+
+	return ttb_OK;
+
+}
+
 // This first displays the finals then calls a recursive routine to output the rest of the bracket
 ttb_error_t Brackets::display_heats()
 {

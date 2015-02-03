@@ -52,6 +52,8 @@ public:
 		start_bracket_tree();
 	};
 
+	ttb_error_t show_bracket();
+
 	ttb_error_t display_heats();
 	ttb_error_t display_heat( Match , int, int, int);
 
@@ -69,6 +71,8 @@ public:
 
 private:
 	int depth; // The number of levels of the bracket ceiling(log2(num_of_teams))
+
+	ttb_error_t _show_bracket(Match,int);
 
 	team the_bye();
 

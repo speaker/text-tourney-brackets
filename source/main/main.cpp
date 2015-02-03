@@ -77,6 +77,8 @@ int main( int argc , char *argv[])
 
 	bracket.display_heats();
 
+	bracket.show_bracket();
+
 	std::cout << "DEBUG: number of teams:" << bracket.team_count() << std::endl;
 
 	std::cout << "DEBUG: bracket size:" << bracket.size() << std::endl;
