@@ -66,7 +66,7 @@ public:
 	int size() { return team_list.size(); }
 
 protected:
-		ttb_error_t load_teams(std::string filename); // TODO: necessary with constructor?
+		ttb_error_t load_teams(std::string filename);
 
 private:
 	std::ifstream file;
