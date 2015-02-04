@@ -48,31 +48,31 @@ bool team::operator==(const team& A)
 	return false;
 }
 
-team::team(std::string _id, std::string _last, std::string _first, std::string _res, int _seed)
+team::team(std::string id, std::string last, std::string first, std::string res, int seed)
 {
-	team_id			= _id;
-	team_last		= _last;
-	team_first		= _first;
-	team_residence	= _res;
-	team_seed		= _seed;
+	_id			= id;
+	_last		= last;
+	_first		= first;
+	_nationality	= res;
+	_seed		= seed;
 }
 
-team::team(const char * _id, const char * _last, const char * _first, const char * _res, int _seed)
+team::team(const char * id, const char * last, const char * first, const char * res, int seed)
 {
-	team_id			= _id;
-	team_last		= _last;
-	team_first		= _first;
-	team_residence	= _res;
-	team_seed 		= _seed;
+	_id			= id;
+	_last		= last;
+	_first		= first;
+	_nationality	= res;
+	_seed 		= seed;
 }
 
 team::team()
 {
-	team_id			= "!NDEF";
-	team_last		= "!NDEF";
-	team_first		= "!NDEF";
-	team_residence	= "!NDEF";
-	team_seed		= -2;
+	_id			= "!NDEF";
+	_last		= "!NDEF";
+	_first		= "!NDEF";
+	_nationality	= "!NDEF";
+	_seed		= -2;
 }
 
 const std::string team::to_str() const
