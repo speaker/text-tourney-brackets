@@ -42,6 +42,16 @@
 #include "team.h"
 #include "roster.h"
 
+/*******************************************************************************
+*                                                                              *
+* Class Match                                                                  *
+*                                                                              *
+* Description:      Class that defines a match and it's components             *
+*                                                                              *
+* Requirements:     Uses: Class team                                            *
+*                                                                              *
+*******************************************************************************/
+
 class Match
 {
 public:
@@ -50,48 +60,30 @@ public:
 	Match(team t1);
 	Match();
 
-	team get_winner();
-	team get_loser();
-
 	ttb_error_t play_match();
-	ttb_error_t play_match_by_seed(); // DEBUG routine to quickly fill bracket
-
-	ttb_error_t	match_one(Match * m);
-
-	ttb_error_t	match_two(Match * m);
-
+	ttb_error_t play_match_by_seed();
+	ttb_error_t	match_one(Match * m) { match_1=m; return ttb_OK; }
+	ttb_error_t	match_two(Match * m) { match_2=m; return ttb_OK; }
+	ttb_error_t add_team(team);
 	Match match_one() { return *match_1; }
-
 	Match match_two() { return *match_2; }
-
-	bool match_one_defined() { if(NULL == match_1) return false; return true; }
-
-	bool match_two_defined() { if(NULL == match_2) return false; return true; }
-
+	bool match_one_defined();
+	bool match_two_defined();
 	team team_one() { return team_1; }
 	team team_two() { return team_2; }
-
+	team get_winner()	{ return winner; }
+	team get_loser()	{ return loser; }
 	bool defined();
-
-	ttb_error_t add_team(team);
 
 
 private:
 	// TODO: Should a match really understand the structure of the bracket other than 2 teams?
-
-	// When teams are added to this match they might need to fall to a lower match first.
-	//
 	std::bitset<2> left_or_right;
-
 	bool go_left();
-
-	team winner; // Winner of the match
-	team loser; // Winner of the match
-
+	team winner;
+	team loser;
 	team team_1;
 	team team_2;
-
 	Match * match_1;
 	Match * match_2;
-
 };

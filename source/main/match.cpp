@@ -39,64 +39,133 @@
 #include <math.h>
 #include <cmath>
 
-
-// A match is comprised of 2 teams, one of which becomes a winner.
+/*******************************************************************************
+*                                                                              *
+* Match::Match(team t1, team t2)                                               *
+*                                                                              *
+* Description:      Constructor that builds a Match given 2 teams              *
+*                                                                              *
+* Inputs:           t1	"left" team of new match                               *
+* 					t2	"right" team of new match                              *
+*                                                                              *
+* Requirements:     N/A                                                        *
+*                                                                              *
+* Outputs:          a Match is created                                         *
+*                                                                              *
+* Effects:          N/A                                                        *
+*                                                                              *
+*******************************************************************************/
 Match::Match(team t1, team t2)
 {
-
 	winner = team();
 	loser = team();
-
 	left_or_right = 0;
-	// winner is constructed as "not defined"
 	team_1 = t1;
 	team_2 = t2;
-
 	match_1 = NULL;
 	match_2 = NULL;
 }
 
-// A match is comprised of 2 teams, one of which becomes a winner.
+/*******************************************************************************
+*                                                                              *
+* Match::Match()                                                               *
+*                                                                              *
+* Description:      Constructor default                                        *
+*                                                                              *
+* Inputs:           t1	"left" team of new match                               *
+* 					t2	"right" team of new match                              *
+*                                                                              *
+* Requirements:     N/A                                                        *
+*                                                                              *
+* Outputs:          a Match is created with not defined teams                  *
+*                                                                              *
+* Effects:          N/A                                                        *
+*                                                                              *
+*******************************************************************************/
 Match::Match()
 {
-
 	winner = team();
 	loser = team();
-
 	left_or_right = 0;
-
-	// winner is constructed as "not defined"
-
 	match_1 = NULL;
 	match_2 = NULL;
 }
 
+/*******************************************************************************
+*                                                                              *
+* Match::Match(Match * m1, Match * m2)                                         *
+*                                                                              *
+* Description:      Constructor that builds a Match given 2 matches            *
+*                                                                              *
+* Inputs:           m1	"left" match                                           *
+* 					m2	"right" match                                          *
+*                                                                              *
+* Requirements:     Matches must be valid or NULL                              *
+*                                                                              *
+* Outputs:          a Match is created                                         *
+*                                                                              *
+* Effects:          N/A                                                        *
+*                                                                              *
+*******************************************************************************/
 Match::Match(Match * m1, Match * m2)
 {
-	left_or_right = 0;
-
 	winner = team();
 	loser = team();
-
-	// winner is constructed as "not defined"
+	left_or_right = 0;
 	match_1 = m1;
 	match_2 = m2;
 }
 
+/*******************************************************************************
+*                                                                              *
+* bool Match::go_left()                                                        *
+*                                                                              *
+* Description:      method that determines whether the next object should go   *
+*                   down the left branch or right. The Pattern is LRRLLRRL     *
+*                                                                              *
+* Inputs:           N/A                                                        *
+*                                                                              *
+* Requirements:     N/A                                                        *
+*                                                                              *
+* Outputs:          bool	true on left                                       *
+*                                                                              *
+* Effects:          N/A                                                        *
+*                                                                              *
+*******************************************************************************/
 bool Match::go_left()
 {
 	if( left_or_right[0] == left_or_right[1] ) return true;
 	return false;
 }
 
-// Bracket trees are complete. They always have a full set of matches even if
-// every competitor has a bye except 2. For this reason, it is safe to assume
-// If there is one match there are 2.
-// If there are no matches, populate myself
-// If there are subordinate matches, pass the team to the correct one of them.
-// Once the subordinate matches are full, this one shoudl populate itself.
-// When full, it should return ttb_match_full
-
+/*******************************************************************************
+*                                                                              *
+* ttb_error_t Match::add_team(team t)                                          *
+*                                                                              *
+* Description:      method to add a team to this bracket reference. Recursion  *
+* is used to climb down the branches as appropriate. If all sub-matches are    *
+* full, then add the team to this match.                                       *
+*                                                                              *
+* Inputs:           t  team to add to this structure                           *
+*                                                                              *
+* Requirements:     t must be a valid team                                     *
+*                                                                              *
+* Outputs:          ttb_OK	        normal completion                          *
+*                   ttb_match_full  this and all bub-matches are full          *
+*                                                                              *
+* Effects:          contents of the match tree is modified                     *
+*                                                                              *
+* Notes:                                                                       *
+*                                                                              *
+* Bracket trees are complete. They always have a full set of matches even if   *
+* every competitor has a bye except 2. For this reason, it is safe to assume   *
+* If there is one match there are 2.                                           *
+* If there are no matches, populate myself                                     *
+* If there are subordinate matches, pass the team to the correct one of them.  *
+* Once the subordinate matches are full, this one shoudl populate itself.      *
+* When full, it should return ttb_match_full                                   *
+*                                                                              *
+*******************************************************************************/
 ttb_error_t Match::add_team(team t)
 {
 	// If both teams are defined, the match is full.
@@ -134,32 +203,27 @@ ttb_error_t Match::add_team(team t)
 
 }
 
-// The winner can be undefined
-team Match::get_winner()
-{
-	return winner;
-}
-
-// The loser can be undefined
-team Match::get_loser()
-{
-	return loser;
-}
-
-ttb_error_t	Match::match_one(Match * m)
-{
-	match_1 = m;
-	return ttb_OK;
-}
-
-ttb_error_t	Match::match_two(Match * m)
-{
-	match_2 = m;
-	return ttb_OK;
-}
-
-
-// TODO: This is presently a bogus play. it is only intended to return something.
+/*******************************************************************************
+*                                                                              *
+* bool Match::defined()                                                        *
+*                                                                              *
+* Description:      method to play out the matches using the seed as the       *
+*                   victory condition                                          *
+*                                                                              *
+* Inputs:           N/A                                                        *
+*                                                                              *
+* Requirements:     Bracket Tree must be set up                                *
+*                                                                              *
+* Outputs:          ttb_OK	        normal completion                          *
+*                   ttb_match_full  this and all bub-matches are full          *
+*                                                                              *
+* Effects:          contents of the match tree is modified                     *
+*                                                                              *
+* Notes:                                                                       *
+*                                                                              *
+* If a seed cannot resolve the match, the "right" team wins                    *
+*                                                                              *
+*******************************************************************************/
 ttb_error_t Match::play_match_by_seed()
 {
 	if(false == team_1.defined())
@@ -192,14 +256,94 @@ ttb_error_t Match::play_match_by_seed()
 	return ttb_OK;
 }
 
+
+/*******************************************************************************
+*                                                                              *
+* bool Match::defined()                                                        *
+*                                                                              *
+* Description:      method to determine if this match has been defined         *
+*                                                                              *
+* Inputs:           t  team to add to this structure                           *
+*                                                                              *
+* Requirements:     t must be a valid team                                     *
+*                                                                              *
+* Outputs:          true	        team is defined                            *
+*                   false           team is not defined                        *
+*                                                                              *
+* Effects:          contents of the match tree is modified                     *
+*                                                                              *
+* Notes:                                                                       *
+*                                                                              *
+* if there is a team or match in _1_ and a team or match in _2_ than it's      *
+* defined otherwise it's not defined or partially defined. This routine treats *
+* either as not defined                                                        *
+*                                                                              *
+*******************************************************************************/
 bool Match::defined()
 {
-	// if there is a team or match in _1_ and a team or match in _2_ than it's defined
-	// otherwise it's not defined or partially defined. This routine treats either as not defined
+	// if there is a team or match in _1_ and a team or match in _2_ than it's defined otherwise it's not defined or partially defined. This routine treats either as not defined
 
 	if( (team_1.defined() || (NULL != match_1) ) && (team_2.defined() || (NULL != match_2) ) )
 	{
 		return true;
 	}
 	return false;
+}
+
+/*******************************************************************************
+*                                                                              *
+* bool Match::match_one_defined()                                              *
+*                                                                              *
+* Description:      Returns whether or not match_1 has been defined            *
+*                                                                              *
+* Inputs:           N/A                                                        *
+*                                                                              *
+* Requirements:     N/A                                                        *
+*                                                                              *
+* Outputs:          true	        Match_1 is defined                         *
+*                   false           Match_1 is not defined                     *
+*                                                                              *
+* Effects:          none                                                       *
+*                                                                              *
+* Notes:                                                                       *
+*                                                                              *
+* Does not test validity of the match                                          *
+*                                                                              *
+*******************************************************************************/
+bool Match::match_one_defined()
+{
+	if(NULL == match_1)
+	{
+		return false;
+	}
+	return true;
+}
+
+/*******************************************************************************
+*                                                                              *
+* bool Match::match_two_defined()                                              *
+*                                                                              *
+* Description:      Returns whether or not match_2 has been defined            *
+*                                                                              *
+* Inputs:           N/A                                                        *
+*                                                                              *
+* Requirements:     N/A                                                        *
+*                                                                              *
+* Outputs:          true	        Match_2 is defined                         *
+*                   false           Match_2 is not defined                     *
+*                                                                              *
+* Effects:          none                                                       *
+*                                                                              *
+* Notes:                                                                       *
+*                                                                              *
+* Does not test validity of the match                                          *
+*                                                                              *
+*******************************************************************************/
+bool Match::match_two_defined()
+{
+	if(NULL == match_2)
+	{
+		return false;
+	}
+	return true;
 }
