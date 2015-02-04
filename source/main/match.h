@@ -48,7 +48,7 @@
 *                                                                              *
 * Description:      Class that defines a match and it's components             *
 *                                                                              *
-* Requirements:     Uses: Class team                                            *
+* Requirements:     Uses: Class team                                           *
 *                                                                              *
 *******************************************************************************/
 
