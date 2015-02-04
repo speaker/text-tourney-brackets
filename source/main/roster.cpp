@@ -42,20 +42,61 @@
 #include "roster.h"
 #include "team.h"
 
-
+/*******************************************************************************
+*                                                                              *
+* Constructor Roster::Roster(std::string filename)                             *
+*                                                                              *
+* Description:      constructs a roster using "filename" as the team data      *
+*                                                                              *
+* Inputs:           filename	Name of the file from which the teams are read *
+*                                                                              *
+* Requirements:     filename is valid                                          *
+*                                                                              *
+* Outputs:          A Roster                                                   *
+*                                                                              *
+* Effects:          Constructor...                                             *
+*                                                                              *
+*******************************************************************************/
 Roster::Roster(std::string filename)
 {
-	load_teams(filename);
+	load_roster(filename);
 }
-
+/*******************************************************************************
+*                                                                              *
+* team Roster::make_a_bye()                                                    *
+*                                                                              *
+* Description:      constructs a bye team                                      *
+*                                                                              *
+* Inputs:           none                                                       *
+*                                                                              *
+* Requirements:     none                                                       *
+*                                                                              *
+* Outputs:          A bye team                                                 *
+*                                                                              *
+* Effects:          a bye team is created                                      *
+*                                                                              *
+*******************************************************************************/
 team Roster::make_a_bye()
 {
 	return team("!BYE","!BYE","!BYE","!BYE",-1);
 }
 
-//
-// This routine will read in the next line with valid data for the roster
-//
+/*******************************************************************************
+*                                                                              *
+* ttb_error_t Roster::read_next_team()                                         *
+*                                                                              *
+* Description:      Reads in the next line with valid data for the roster      *
+*                                                                              *
+* Inputs:           none                                                       *
+*                                                                              *
+* Requirements:     file should already be created and ready for processing    *
+*                                                                              *
+* Outputs:          ttb_EOF	End of File has been reached                       *
+*                   ttb_OK	Normal completion                                  *
+*                                                                              *
+* Effects:          File pointer is altered                                    *
+*                                                                              *
+*******************************************************************************/
 ttb_error_t Roster::read_next_team()
 {
 	std::string sOneLine("#");
@@ -87,9 +128,12 @@ ttb_error_t Roster::read_next_team()
 
 	int tmp_seed = -1;
 
-	if( "" == seed_str ) {
+	if( "" == seed_str )
+	{
 		tmp_seed = 0;
-	} else {
+	}
+		else
+	{
 		std::stringstream( seed_str ) >> tmp_seed;
 	}
 
@@ -100,11 +144,24 @@ ttb_error_t Roster::read_next_team()
 	return ttb_OK;
 }
 
-
+/*******************************************************************************
+*                                                                              *
+* ttb_error_t Roster::display_team_list()                                      *
+*                                                                              *
+* Description:      Dumps the list of teams to standard out                    *
+*                                                                              *
+* Inputs:           none                                                       *
+*                                                                              *
+* Requirements:     none                                                       *
+*                                                                              *
+* Outputs:          ttb_OK	Normal completion                                  *
+*                                                                              *
+* Effects:          Standard Output generated                                  *
+*                                                                              *
+*******************************************************************************/
 ttb_error_t Roster::display_team_list()
 {
 	std::cout << "\n\t\tTeam List Dump:" << std::endl;
-
 
 	std::vector<team>::const_iterator i = team_list.begin();
 
@@ -122,6 +179,21 @@ ttb_error_t Roster::display_team_list()
 	return ttb_OK;
 }
 
+/*******************************************************************************
+*                                                                              *
+* ttb_error_t Roster::add_team(team t)                                         *
+*                                                                              *
+* Description:      Adds team 't' to the roster                                *
+*                                                                              *
+* Inputs:           t	team to add to the roster                              *
+*                                                                              *
+* Requirements:     t	shoudl be a valid team                                 *
+*                                                                              *
+* Outputs:          ttb_OK	Normal completion                                  *
+*                                                                              *
+* Effects:          team list is modified                                      *
+*                                                                              *
+*******************************************************************************/
 ttb_error_t Roster::add_team(team t)
 {
 	// nothing for now
@@ -129,18 +201,22 @@ ttb_error_t Roster::add_team(team t)
 	return ttb_OK;
 }
 
-ttb_error_t Roster::setup_brackets()
-{
-	// nothing for now
-	return ttb_OK;
-}
-
+/*******************************************************************************
+*                                                                              *
+* ttb_error_t Roster::load_roster(std::string filename)                        *
+*                                                                              *
+* Description:      Loads the roster of teams                                  *
+*                                                                              *
+* Inputs:           filename	Name of the file from which the teams are read *
+*                                                                              *
+* Requirements:     filename is valid                                          *
+*                                                                              *
+* Outputs:          ttb_OK	Normal completion                                  *
+*                                                                              *
+* Effects:          team list is modified                                      *
+*                                                                              *
+*******************************************************************************/
 ttb_error_t Roster::load_roster(std::string filename)
-{
-	return load_teams(filename);
-}
-
-ttb_error_t Roster::load_teams(std::string filename)
 {
 	file.open(filename.c_str(),std::ios::in);
 

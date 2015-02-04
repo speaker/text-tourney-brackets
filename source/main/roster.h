@@ -42,6 +42,18 @@
 #include "error.h"
 #include "team.h"
 
+/*******************************************************************************
+*                                                                              *
+* Class Roster                                                                 *
+*                                                                              *
+* Description:      Class the defines a roster of teams                        *
+*                                                                              *
+* Requirements:     team                                                       *
+*                                                                              *
+* NOTE: team_list contains the real teams in the bracket. It must not include  *
+*	    bye-teams. The bye-teams are added when the brackets are built.        *
+*                                                                              *
+*******************************************************************************/
 
 class Roster
 {
@@ -50,23 +62,16 @@ public:
 
 	Roster(std::string filename);
 
-	// NOTE: team_list contains the real teams in the bracket. It must not include bye-teams.
-	// The bye-teams are added when the brackets are built.
-
 	std::vector<team> team_list;
 
 	ttb_error_t display_team_list();
 	ttb_error_t add_team(team t);
 	ttb_error_t read_next_team();
-	ttb_error_t setup_brackets();
 	ttb_error_t load_roster(std::string filename);
 
 	team make_a_bye();
 
 	int size() { return team_list.size(); }
-
-protected:
-		ttb_error_t load_teams(std::string filename);
 
 private:
 	std::ifstream file;
