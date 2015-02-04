@@ -47,34 +47,109 @@ bool team::operator==(const team& A)
 
 	return false;
 }
-
+/*******************************************************************************
+*                                                                              *
+* Constructor team::team(	std::string id                                     *
+* 							std::string last,                                  *
+* 							std::string first,                                 *
+* 							std::string res,                                   *
+* 							int seed)                                          *
+*                                                                              *
+* Description:      constructs a team with the given data                      *
+*                                                                              *
+* Inputs:           string	id		The ID to use for this team                *
+* 					string	last	Last name of team                          *
+* 					string	first	First name of team                         *
+* 					string	res		Country of residency                       *
+* 					int		seed	the seed or ranking of this team           *
+*                                                                              *
+* Requirements:     Inputs must be valid                                       *
+*                                                                              *
+* Outputs:          New instance of a team is allocated                        *
+*                                                                              *
+* Effects:          Constructor...                                             *
+*                                                                              *
+*******************************************************************************/
 team::team(std::string id, std::string last, std::string first, std::string res, int seed)
 {
-	_id			= id;
-	_last		= last;
-	_first		= first;
+	_id				= id;
+	_last			= last;
+	_first			= first;
 	_nationality	= res;
-	_seed		= seed;
+	_seed			= seed;
 }
 
+/*******************************************************************************
+*                                                                              *
+* Constructor team::team(	char *  id                                         *
+* 							char * last,                                       *
+* 							char * first,                                      *
+* 							char * res,                                        *
+* 							int seed)                                          *
+*                                                                              *
+* Description:      constructs a team with the given data                      *
+*                                                                              *
+* Inputs:           char *	id		The ID to use for this team                *
+* 					char *	last	Last name of team                          *
+* 					char *	first	First name of team                         *
+* 					char *	res		Country of residency                       *
+* 					int		seed	the seed or ranking of this team           *
+*                                                                              *
+* Requirements:     Inputs must be valid                                       *
+*                                                                              *
+* Outputs:          New instance of a team is allocated                        *
+*                                                                              *
+* Effects:          Constructor...                                             *
+*                                                                              *
+*******************************************************************************/
 team::team(const char * id, const char * last, const char * first, const char * res, int seed)
 {
-	_id			= id;
-	_last		= last;
-	_first		= first;
+	_id				= id;
+	_last			= last;
+	_first			= first;
 	_nationality	= res;
-	_seed 		= seed;
+	_seed 			= seed;
 }
 
+/*******************************************************************************
+*                                                                              *
+* Constructor team::team()                                                     *
+*                                                                              *
+* Description:      constructs a team that is "not defined"                    *
+*                                                                              *
+* Inputs:           none                                                       *
+*                                                                              *
+* Requirements:     none                                                       *
+*                                                                              *
+* Outputs:          New instance of a team is allocated                        *
+*                                                                              *
+* Effects:          Constructor...                                             *
+*                                                                              *
+*******************************************************************************/
 team::team()
 {
-	_id			= "!NDEF";
-	_last		= "!NDEF";
-	_first		= "!NDEF";
+	_id				= "!NDEF";
+	_last			= "!NDEF";
+	_first			= "!NDEF";
 	_nationality	= "!NDEF";
-	_seed		= -2;
+	_seed			= -2;
 }
 
+/*******************************************************************************
+*                                                                              *
+* const std::string team::to_str() const                                       *
+*                                                                              *
+* Description:      builds a string to represent the team data                 *
+*                                                                              *
+* Inputs:           none                                                       *
+*                                                                              *
+* Requirements:     none                                                       *
+*                                                                              *
+* Outputs:          string const                                               *
+*                                                                              *
+* Effects:          none                                                       *
+*                                                                              *
+*******************************************************************************/
 const std::string team::to_str() const
 {
 	std::string str("ID:");

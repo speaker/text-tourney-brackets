@@ -41,7 +41,15 @@
 #include <fstream>
 #include "error.h"
 
-
+/*******************************************************************************
+*                                                                              *
+* Class team                                                                   *
+*                                                                              *
+* Description:      Class that defines a team and it's components              *
+*                                                                              *
+* Requirements:     none                                                       *
+*                                                                              *
+*******************************************************************************/
 class team
 {
 public:
