@@ -42,6 +42,18 @@
 #include "roster.h"
 #include "match.h"
 
+/*******************************************************************************
+*                                                                              *
+* Class Brackets : public Roster                                               *
+*                                                                              *
+* Description:      master class of a whole bracket.                           *
+*                                                                              *
+* Requirements:     Roster                                                     *
+*                                                                              *
+* NOTE: team_list contains the real teams in the bracket. It must not include  *
+*	    bye-teams. The bye-teams are added when the brackets are built.        *
+*                                                                              *
+*******************************************************************************/
 class Brackets : public Roster
 {
 public:
@@ -52,7 +64,7 @@ public:
 	ttb_error_t show_bracket();		// displays "pretty" match tree
 	ttb_error_t display_heats();	// dumps the matches
 
-	// TODO: Make this non-bogus
+	// TODO: define resolve routine
 	ttb_error_t resolve();			// starts playing matches
 	ttb_error_t resolve_by_seed();	// plays matches using seed to pick winner
 

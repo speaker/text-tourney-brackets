@@ -40,6 +40,23 @@
 #include <cmath>
 #include <string>
 
+/*******************************************************************************
+*                                                                              *
+* Brackets::Brackets(std::string f ) : Roster(f)                               *
+*                                                                              *
+* Description:      Constructor for a Brackets                                 *
+*                                                                              *
+* Inputs:           f		filename given to Roster                           *
+*                                                                              *
+* Requirements:     f must be a valid filename                                 *
+*                                                                              *
+* Outputs:          Constructor...                                             *
+*                                                                              *
+* Effects:          Constructor...                                             *
+*                                                                              *
+* Notes:				                                                       *
+*                                                                              *
+********************************************************************************/
 Brackets::Brackets(std::string f ) : Roster(f)
 {
 	depth = (int)std::ceil( log2(team_list.size()));
@@ -47,14 +64,30 @@ Brackets::Brackets(std::string f ) : Roster(f)
 	start_bracket_tree();
 }
 
-// Each match will display:
-// 1) It's left-subordinate match _XOR_ it's left-team if there are none
-// 2) It's winner or --------- if it's not determined
-// 3) It's right-subordinate match _XOR_ it's right-team if there are none
-//
-// The Any match with subordinate matches will have it's team displayed as the
-// winner of that subordinate match.
-
+/*******************************************************************************
+*                                                                              *
+* ttb_error_t Brackets::show_bracket()                                         *
+*                                                                              *
+* Description:      initial routine to output the human readable bracket tree  *
+*                                                                              *
+* Inputs:           none                                                       *
+*                                                                              *
+* Requirements:     none                                                       *
+*                                                                              *
+* Outputs:          none			                                           *
+*                                                                              *
+* Effects:          standard output is generated                               *
+*                                                                              *
+* Notes:				                                                       *
+* 	Each match will display:                                                   *
+*	1) It's left-subordinate match _XOR_ it's left-team if there are none      *
+*	2) It's winner or --------- if it's not determined                         *
+*	3) It's right-subordinate match _XOR_ it's right-team if there are none    *
+*                                                                              *
+* The Any match with subordinate matches will have it's team displayed as the  *
+* winner of that subordinate match.                                            *
+*                                                                              *
+********************************************************************************/
 ttb_error_t Brackets::show_bracket()
 {
 	std::cout << std::endl;
@@ -67,11 +100,52 @@ ttb_error_t Brackets::show_bracket()
 	return ttb_OK;
 }
 
+/*******************************************************************************
+*                                                                              *
+* void tab_out(int cnt)                                                        *
+*                                                                              *
+* Description:      prints to standard out 2 x cnt tabs                        *
+*                                                                              *
+* Inputs:           cnt		count used to determine the bumber of two-tabs     *
+*                                                                              *
+* Requirements:     none                                                       *
+*                                                                              *
+* Outputs:          none			                                           *
+*                                                                              *
+* Effects:          standard output is generated                               *
+*                                                                              *
+* Notes:				                                                       *
+*                                                                              *
+********************************************************************************/
 void tab_out(int cnt)
 {
 	for(int i = 0 ; i < cnt ; i++) std::cout << "\t\t";
 }
 
+/*******************************************************************************
+*                                                                              *
+* ttb_error_t Brackets::_show_bracket(Match m, int curr_depth)                 *
+*                                                                              *
+* Description:      Routine to recursively display matches. (See Notes.)       *
+*                                                                              *
+* Inputs:           m		    Match from which display begins (recursive)    *
+* 					curr_depth	Current depth of this Match                    *
+*                                                                              *
+* Requirements:     The tree must be defined                                   *
+*                                                                              *
+* Outputs:          ttb_OK			normal completion                          *
+*                                                                              *
+* Effects:          standard output is generated                               *
+*                                                                              *
+* Notes:				                                                       *
+* 	This method displayed output in a human readable text format. It can be    *
+* 	to generate a bracket with only the leaf nodes populated, or one with some *
+* 	or all matches complete.                                                   *
+*                                                                              *
+*TODO: Explain this better.....                                                *
+*TODO: Strings should be defined in an external system that allows for L10N &  *
+*      I18N as well as sports specific terms                                   *
+********************************************************************************/
 ttb_error_t Brackets::_show_bracket(Match m, int curr_depth)
 {
 	// Display all matches to the left, or else the team to the left.
@@ -112,11 +186,29 @@ ttb_error_t Brackets::_show_bracket(Match m, int curr_depth)
 
 }
 
-// This first displays the finals then calls a recursive routine to output the rest of the bracket
+/*******************************************************************************
+*                                                                              *
+* ttb_error_t Brackets::_display_heats()                                       *
+*                                                                              *
+* Description:      Routine to recursively display matches. (See Notes.)       *
+*                                                                              *
+* Inputs:           none                                                       *
+*                                                                              *
+* Requirements:     The tree must be defined                                   *
+*                                                                              *
+* Outputs:          ttb_OK			normal completion                          *
+*                                                                              *
+* Effects:          standard output is generated                               *
+*                                                                              *
+* Notes:				                                                       *
+*                                                                              *
+*TODO: Explain this better.....                                                *
+*TODO: Strings should be defined in an external system that allows for L10N &  *
+*      I18N as well as sports specific terms
+********************************************************************************/
 ttb_error_t Brackets::display_heats()
 {
 	int curr_depth = 0;
-	// TODO: Strings should be defined in an external system that allows for L10N and I18N as well as sports specific terms
 	if(finals.get_winner().defined())
 	{
 		std::cout << "1st: " << finals.get_winner().last() << ", " << finals.get_winner().first() << std::endl;
@@ -167,6 +259,25 @@ ttb_error_t Brackets::display_heats()
 	return ttb_OK;
 }
 
+/*******************************************************************************
+*                                                                              *
+* int Brackets::calc_left_match_start(int depth_start_count, int curr_depth)   *
+*                                                                              *
+* Description:      Calculates the value of the first match at this depth      *
+*                                                                              *
+* Inputs:           depth_start_count	*See Notes                             *
+* 					curr_depth          depth in the tree of this match        *
+*                                                                              *
+* Requirements:     none                                                       *
+*                                                                              *
+* Outputs:          int			value of the first match at this depth         *
+*                                                                              *
+* Effects:          none                                                       *
+*                                                                              *
+* Notes:			The caller is reporting the start point for it's depth.    *
+*                   From this 2^(depth of caller-1) is subtracted.             *
+*                                                                              *
+********************************************************************************/
 int Brackets::calc_left_match_start(int depth_start_count, int curr_depth)
 {
 	int num = depth_start_count-pow(2,curr_depth);
@@ -174,9 +285,43 @@ int Brackets::calc_left_match_start(int depth_start_count, int curr_depth)
 	return num;
 }
 
-
-//TODO: bit_mask is not a very good name
-
+/*******************************************************************************
+*                                                                              *
+* ttb_error_t Brackets::_display_heat(	Match m,                               *
+* 										int depth_start_count,                 *
+* 										int curr_depth,                        *
+* 										int bit_mask)                          *
+*                                                                              *
+* Description:      Routine to recursively display matches. (See Notes.)       *
+*                                                                              *
+* Inputs:           m                   Match to display                       *
+* 					depth_start_count	*See Notes                             *
+* 					curr_depth          depth in the tree of this match        *
+* 					bit_mask            *See notes                             *
+*                                                                              *
+* Requirements:     m					must be a valid match                  *
+* 					depth_start_count	range 1-depth                          *
+* 					curr_depth          range 1-depth                          *
+* 					bit_mask            *See notes                             *
+*                                                                              *
+* Outputs:          ttb_OK			normal completion                          *
+*                                                                              *
+* Effects:          standard output is generated                               *
+*                                                                              *
+* Notes:				                                                       *
+* 	The output of this routine is one match per line. Each depth level of the  *
+* tree can be represented by an equal number of bits. Finals needs 0 bits,     *
+* semi-finals needs 1 bit (2 Matches), quarter finals needs 2 bits (4 teams),  *
+* and so forth. The position of that match in a tier is the sum of the first   *
+* match in the tier and the bit value represented by it's position. (bit_mask) *
+* When a subordinate Match is being calculated, the bit_mask is left shifted   *
+* with either a 0 (left) or a 1 (right) pushed in. The depth_start_count is    *
+* constant for a given tier, so when added to the bit_mask that specific match *
+* number is calculated.                                                        *
+*                                                                              *
+*TODO: Explain this better.....                                                *
+*TODO: bit_mask is not a very good name                                        *
+********************************************************************************/
 ttb_error_t Brackets::_display_heat(Match m, int depth_start_count, int curr_depth, int bit_mask)
 {
 	int match_number = depth_start_count + bit_mask;
@@ -215,6 +360,27 @@ int Brackets::get_depth()
 	return depth;
 }
 
+/*******************************************************************************
+*                                                                              *
+* ttb_error_t Brackets::setup_brackets()                                       *
+*                                                                              *
+* Description:      populates the bracket tree with matches.                   *
+*                                                                              *
+* Inputs:           none	                                                   *
+*                                                                              *
+* Requirements:     cur_depth	must be a valid depth of this bracket tree     *
+*                                                                              *
+* Outputs:          ttb_OK			normal completion                          *
+*                                                                              *
+* Effects:          tree structure is allocated                                *
+*                                                                              *
+* Note:				This routines expects the team list is in seed order.      *
+* 					Bye teams are expected to be lowest seed and thus placed   *
+*                   at the end of the list. The algorithm that populates the   *
+*                   tree uses seed order placement, so if there needs to be    *
+*                   randomness in the list, it had to be done prior.           *
+*                                                                              *
+*******************************************************************************/
 ttb_error_t Brackets::setup_brackets()
 {
 
@@ -240,14 +406,27 @@ ttb_error_t Brackets::setup_brackets()
 		finals.add_team(*i);
 	}
 
-
 	// TODO: nothing yet
 	return ttb_OK;
 
 }
 
-// This does not populate the brackets, only creates he tree structure
-
+/*******************************************************************************
+*                                                                              *
+* ttb_error_t Brackets::start_bracket_tree()                                   *
+*                                                                              *
+* Description:      Creates an empty tree structure.                           *
+*                                                                              *
+* Inputs:           none	                                                   *
+*                                                                              *
+* Requirements:     cur_depth	must be a valid depth of this bracket tree     *
+*                                                                              *
+* Outputs:          ttb_no_roster	No roster exists                           *
+*                   ttb_OK			normal completion                          *
+*                                                                              *
+* Effects:          tree structure is allocated                                *
+*                                                                              *
+*******************************************************************************/
 ttb_error_t Brackets::start_bracket_tree()
 {
 
@@ -270,7 +449,24 @@ ttb_error_t Brackets::start_bracket_tree()
 	return ttb_OK;
 }
 
-
+/*******************************************************************************
+*                                                                              *
+* Match * Brackets::build_bracket_node(int cur_depth)                          *
+*                                                                              *
+* Description:      Creates a new instance of a match. When a match is created *
+* 					It is created with the subordinate matches attached. When  *
+* 					a leaf match would be created, the teams of the requesting *
+* 					match are already that match, so none is actually built.   *
+*                                                                              *
+* Inputs:           cur_depth	the depth the match is being created at        *
+*                                                                              *
+* Requirements:     cur_depth	must be a valid depth of this bracket tree     *
+*                                                                              *
+* Outputs:          Match *		new created instance of a Match                *
+*                                                                              *
+* Effects:          new instance...                                            *
+*                                                                              *
+*******************************************************************************/
 Match * Brackets::build_bracket_node(int cur_depth)
 {
 	if(cur_depth == depth) return NULL;
@@ -281,11 +477,44 @@ Match * Brackets::build_bracket_node(int cur_depth)
 	return (new Match(m1,m2));
 }
 
+// TODO: Need to make this really work
+/*******************************************************************************
+*                                                                              *
+* ttb_error_t Brackets::resolve_by_seed()                                      *
+*                                                                              *
+* Description:      Plays out the matches                                      *
+*                                                                              *
+* Inputs:           none                                                       *
+*                                                                              *
+* Requirements:     Roster should be complete                                  *
+*                                                                              *
+* Outputs:          ttb_OK	Normal completion                                  *
+*                                                                              *
+* Effects:          bracket tree is modified                                   *
+*                                                                              *
+*******************************************************************************/
+
 ttb_error_t Brackets::resolve()
 {
 	return finals.play_match_by_seed();
 }
 
+/*******************************************************************************
+*                                                                              *
+* ttb_error_t Brackets::resolve_by_seed()                                      *
+*                                                                              *
+* Description:      Plays out the matches using the seed as the 1st victory    *
+* 					condition. "Right wins" if seed doesn't decide.            *
+*                                                                              *
+* Inputs:           none                                                       *
+*                                                                              *
+* Requirements:     Roster should be complete                                  *
+*                                                                              *
+* Outputs:          ttb_OK	Normal completion                                  *
+*                                                                              *
+* Effects:          bracket tree is modified                                   *
+*                                                                              *
+*******************************************************************************/
 ttb_error_t Brackets::resolve_by_seed()
 {
 	return finals.play_match_by_seed();
